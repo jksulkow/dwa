@@ -29,7 +29,7 @@ A email designated to receive messages from the server. Examples:
  	
  	Some might want this to be the same as the APP_EMAIL, others might want to create a designated gmail address for it
 */ 	
-	define('SYSTEM_EMAIL', 'webmaster@myapp.com'); 
+	define('SYSTEM_EMAIL', 'jksulkow@gmail.com'); 
 
 # Default DB name for this app
 	define('DB_NAME', "jsulkow_p2_jsulkow_com"); 
@@ -42,5 +42,5 @@ A email designated to receive messages from the server. Examples:
 	//define('SMTP_PASSWORD', '');
 
 # For extra security, you might want to set different salts than what the core uses
-	//define('PASSWORD_SALT', '');
-	//define('TOKEN_SALT', '');
+	define('PASSWORD_SALT', 'rhinoceros');
+	define('TOKEN_SALT', 'pterodon');
