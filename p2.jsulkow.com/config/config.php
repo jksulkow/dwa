@@ -32,7 +32,7 @@ A email designated to receive messages from the server. Examples:
 	define('SYSTEM_EMAIL', 'jksulkow@gmail.com'); 
 
 # Default DB name for this app
-	define('DB_NAME', "jsulkow_p2_jsulkow_com"); 
+	define('DB_NAME', "jsulkowc_p2_jsulkow_com"); 
 
 
 # If your app is going to have outgoing emails, you should fill in your SMTP settings
@@ -42,5 +42,5 @@ A email designated to receive messages from the server. Examples:
 	//define('SMTP_PASSWORD', '');
 
 # For extra security, you might want to set different salts than what the core uses
-	define('PASSWORD_SALT', 'rhinoceros');
-	define('TOKEN_SALT', 'pterodon');
+	//define('PASSWORD_SALT', '');
+	//define('TOKEN_SALT', '');
