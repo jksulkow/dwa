@@ -15,9 +15,40 @@
 	
 </head>
 
-<body>	
+<body>
+	
+	 <div class="titlebar">
+		<div class="raventitle">Raven
 
-	<?=$content;?> 
+		<span id='menu'>
+	
+		<!-- Menu for users who are logged in -->
+		<? if($user): ?>
+			
+			<a href='/users/logout'>Logout</a>
+			<a href='/posts/users'>Follow/Unfollow</a>
+			<a href='/posts/'>View posts</a>
+			<a href='/posts/add'>Add a new post</a>
+			<a href='/users/profile'>My Profile</a>
+		
+		<!-- Menu options for users who are not logged in -->	
+		<? else: ?>
+		
+			<a href='/users/signup'>Sign up</a>
+			<a href='/users/login'>Log in</a>
+		
+		<? endif; ?>
+		</span>
+		</div>
+	</div>
+	<div class="leftside">
+		<img src= "../images/raven.jpg" alt="raven"/>
+	</div>
+	
+	<br>
+
+	<?=$content;?>
+
 
 </body>
 </html>

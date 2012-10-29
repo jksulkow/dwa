@@ -1,3 +1,5 @@
+ <div class="middle">
+        <div class="text">Sign Up Here.</div>
 <form method='POST' action='/users/p_signup'>
     First Name<br>
     <input type='text' name='first_name'>
@@ -20,3 +22,5 @@
     <input type='submit'>
     
 </form>
+
+</div>

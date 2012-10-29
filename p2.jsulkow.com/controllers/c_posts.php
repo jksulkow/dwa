@@ -46,22 +46,59 @@ class posts_controller extends base_controller {
 	$this->template->content = View::instance('v_posts_index');
 	$this->template->title   = "Posts";
 	
-	# Build our query
+	# Build a query of the users this user is following - we're only interested in their posts
 	$q = "SELECT * 
-		FROM posts
-		JOIN users USING (user_id)";
+		FROM users_users
+		WHERE user_id = ".$this->user->user_id;
 	
-	# Run our query, grabbing all the posts and joining in the users	
+	# Execute our query, storing the results in a variable $connections
+	$connections = DB::instance(DB_NAME)->select_rows($q);
+	
+	# In order to query for the posts we need, we're going to need a string of user id's, separated by commas
+	# To create this, loop through our connections array
+	$connections_string = "";
+	foreach($connections as $connection) {
+		$connections_string .= $connection['user_id_followed'].",";
+	}
+	
+	# Remove the final comma 
+	$connections_string = substr($connections_string, 0, -1);
+	
+	# Connections string example: 10,7,8 (where the numbers are the user_ids of who this user is following)
+
+	# Now, lets build our query to grab the posts
+	
+	$q="";
+	$msg = "";
+	
+	# if the array is not empty, use it in the query.
+	if(!empty($connections_string)) {
+		$q = "SELECT * 
+		FROM posts 
+		JOIN users USING (user_id)
+		WHERE posts.user_id IN (".$connections_string.")";
+		# This is where we use that string of user_ids we created
+	}
+	
+	# otherwise, if the array is empty, just display the posts from this user.
+	else {
+		$q  = "SELECT *
+		FROM posts
+		JOIN users USING (user_id)
+		where user_id = ".$this->user->user_id;
+		$msg = "Follow friends to see their posts.";
+	}
+	
+	# Run our query, store the results in the variable $posts
 	$posts = DB::instance(DB_NAME)->select_rows($q);
 	
 	# Pass data to the view
-	# You can create a variable on the fly and pass it in.
-	# posts is the new one; we loaded it with $posts and
-	# are passing it to the view.
 	$this->template->content->posts = $posts;
+	$this->template->content->msg = $msg;
 	
 	# Render view
 	echo $this->template;
+	
 	}
 	
 	public function users() {
@@ -99,16 +136,22 @@ class posts_controller extends base_controller {
 	
 	public function follow($user_id_followed = NULL) {
 	
-	$data['created'] = Time::now();
-	$data['user_id'] = $this->user->user_id;
-	$data['user_id_followed'] = $user_id_followed;
+		$data['created'] = Time::now();
+		$data['user_id'] = $this->user->user_id;
+		$data['user_id_followed'] = $user_id_followed;
 	
-	DB::instance(DB_NAME)->insert("users_users", $data);
+		DB::instance(DB_NAME)->insert("users_users", $data);
 	
-	Router::redirect("/posts/users");
+		Router::redirect("/posts/users");
 	}
 	
 	public function unfollow($user_id_followed = NULL) {
+		# Delete this connection
+		$where_condition = 'WHERE user_id = '.$this->user->user_id.' AND user_id_followed = '.$user_id_followed;
+		DB::instance(DB_NAME)->delete('users_users', $where_condition);
+	
+		# Send them back
+		Router::redirect("/posts/users");
 		
 	}
 

@@ -14,13 +14,100 @@ body {
     padding: 15px;
 
 }
+
+.titlebar {
+    display: block;
+    width: 100%;
+    background-color: black;
+}
+
+.leftside {
+    width: 33%;
+    float: left;
+}
+
+.middle {
+    width: 33%;
+    float: left;
+}
+
+.leftside img {
+    border-style: solid;
+    border-width: 1px;
+}
     
-h1 {
+/* text in Raven's font */
+.text {
     font-family: FontleroyBrownRegular, Helvetica, sans-serif;
     font-size: 48px;
-    text-align: center;
     }
 
-h1 .raven {
+/* the word raven on a page*/
+.raven {
+    font-family: FontleroyBrownRegular, Helvetica, sans-serif;
     font-size: 72px;
+}
+
+.raventitle{
+    font-family: FontleroyBrownRegular, Helvetica, sans-serif;
+    font-size: 40px;
+    letter-spacing: 2px;
+    color: PowderBlue;
+    background-color: Black;
+    border-style: solid;
+    border-width: 1px;
+    border-color: SlateGray;
+    padding: 5px;
+} 
+
+/* user names for display on such
+ * things as list of posts, list of followed, etc. */
+.username {
+    font-family: FontleroyBrownRegular, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+/* the quotations that users post */
+.quote {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+}
+
+.follow a, .unfollow a {
+    width: 1in;
+    float: right;
+    text-align: center;
+    padding: 2px;
+}
+
+.unfollow a {
+    background-color: CadetBlue;
+    color: PowderBlue;
+}
+
+#menu a, .follow a, .unfollow a {
+    font-family: Helvetica, Arial, sans-serif;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#menu a, .follow a {
+    color: PowderBlue;
+    background-color: black;
+}
+
+#menu a {
+    font-size: .4em;
+    padding: 10px;  
+    }
+
+#menu a:hover, .follow a:hover, .unfollow a:hover {
+    background-color: PowderBlue;
+    color: black;
+    box-shadow: 5px 5px 2px #888888;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
 }

@@ -36,7 +36,8 @@ class users_controller extends base_controller {
         # call method 'insert', pass it the table name and fields
         DB::instance(DB_NAME)->insert('users', $_POST);
         
-        echo 'You are registered';
+        # Send user to the login page
+	Router::redirect("/users/login");
     }
     
 
@@ -68,7 +69,7 @@ class users_controller extends base_controller {
 	if(!$token) {
 			
 		# Send them back to the login page
-		Router::redirect("/users/login/");
+		Router::redirect("/users/login");
 		
 	# But if we did, login succeeded! 
 	} else {
@@ -76,8 +77,7 @@ class users_controller extends base_controller {
 		# Store this token in a cookie
 		@setcookie("token", $token, strtotime('+2 weeks'), '/');
 		
-		// Send them to the main page (can edit this to whever you want them to go)
-		Router::redirect("/");
+		Router::redirect("/users/profile");
 					
 	}
     }
@@ -96,7 +96,7 @@ class users_controller extends base_controller {
 	# Delete their token cookie - effectively logging them out
 	setcookie("token", "", strtotime('-1 year'), '/');
 	
-	echo "You have been logged out.";
+	Router::redirect("/users/login");
     }
     
     public function profile() {
@@ -113,7 +113,12 @@ class users_controller extends base_controller {
 	# Setup view
 	$this->template->content = View::instance('v_users_profile');
 	$this->template->title   = "Profile of ".$this->user->first_name;
+        
+        # Create a view fragment with the posts index
+        #$view_fragment = View::instance('v_posts_index');
 	
+        # Display the posts index
+        #echo $view_fragment;
         
     	# Load CSS / JS
 		$client_files = Array(
