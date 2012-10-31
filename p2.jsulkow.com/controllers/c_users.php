@@ -7,7 +7,7 @@ class users_controller extends base_controller {
     }
     
     public function index() {
-        echo "Welcome to the Users department";
+        Router::redirect("/users/login");
     }
     
     public function signup() {
@@ -115,11 +115,6 @@ class users_controller extends base_controller {
 	$this->template->content = View::instance('v_users_profile');
 	$this->template->title   = "Profile of ".$this->user->first_name;
         
-        # Create a view fragment with the posts index
-        #$view_fragment = View::instance('v_posts_index');
-	
-        # Display the posts index
-        #echo $view_fragment;
         
     	# Load CSS / JS
 		$client_files = Array(
@@ -131,5 +126,9 @@ class users_controller extends base_controller {
         	
 	# Render template
 	echo $this->template;
+    }
+    
+    public function aboutMe() {
+        $this->template->content = View::instance('v_users_aboutme');
     }
 }

@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	<div class="leftside">
-		<img src= "http://p2.jsulkow.com/images/raven.jpg" alt="raven"/>
+		<img src= "/images/raven.jpg" alt="raven"/>
 	</div>
 	
 	<br>

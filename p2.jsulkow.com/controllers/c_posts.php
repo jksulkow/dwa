@@ -76,6 +76,7 @@ class posts_controller extends base_controller {
 		FROM posts
 		JOIN users USING (user_id)
 		WHERE posts.user_id IN (".$connections_string.")
+		or posts.user_id = ".$this->user->user_id."
 		order by posts.created desc";
 		# This is where we use that string of user_ids we created
 	}
@@ -85,7 +86,8 @@ class posts_controller extends base_controller {
 		$q  = "SELECT *
 		FROM posts
 		JOIN users USING (user_id)
-		where user_id = ".$this->user->user_id;
+		where user_id = ".$this->user->user_id."
+		order by posts.created desc";
 		
 		$msg = "Follow friends to see their posts.";
 	}
