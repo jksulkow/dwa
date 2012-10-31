@@ -35,8 +35,7 @@ class posts_controller extends base_controller {
 		# Insert
 		DB::instance(DB_NAME)->insert('posts', $_POST);
 		
-		# Quick and dirty feedback
-		echo "Your post has been added. <a href='/posts/add'>Add another?</a>";
+		Router::redirect("/posts/index");
 	
 	}
 	
@@ -74,9 +73,10 @@ class posts_controller extends base_controller {
 	# if the array is not empty, use it in the query.
 	if(!empty($connections_string)) {
 		$q = "SELECT * 
-		FROM posts 
+		FROM posts
 		JOIN users USING (user_id)
-		WHERE posts.user_id IN (".$connections_string.")";
+		WHERE posts.user_id IN (".$connections_string.")
+		order by posts.created desc";
 		# This is where we use that string of user_ids we created
 	}
 	
@@ -86,6 +86,7 @@ class posts_controller extends base_controller {
 		FROM posts
 		JOIN users USING (user_id)
 		where user_id = ".$this->user->user_id;
+		
 		$msg = "Follow friends to see their posts.";
 	}
 	

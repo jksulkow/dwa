@@ -20,9 +20,7 @@ class users_controller extends base_controller {
     }
     
     public function p_signup() {
-        # What data was submitted
-        print_r($_POST);
-        
+       
         # encrypt the password
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
         
@@ -41,11 +39,12 @@ class users_controller extends base_controller {
     }
     
 
-    public function login() {
+    public function login($error = NULL) {
 
 	# Setup view
 		$this->template->content = View::instance('v_users_login');
-		$this->template->title   = "Login";
+        # Pass data to the view
+		$this->template->content->error  = $error;
 		
 	# Render template
 		echo $this->template;
@@ -69,7 +68,9 @@ class users_controller extends base_controller {
 	if(!$token) {
 			
 		# Send them back to the login page
-		Router::redirect("/users/login");
+
+		Router::redirect("/users/login/error");
+
 		
 	# But if we did, login succeeded! 
 	} else {
@@ -101,9 +102,9 @@ class users_controller extends base_controller {
     
     public function profile() {
         
-	# If user is blank, they're not logged in, show message and don't do anything else
+	# If user is blank, they're not logged in, redirect to signup/login page
 	if(!$this->user) {
-		echo "Members only. <a href='/users/login'>Login</a>";
+		Router::redirect("/users/login");
 		
 		# Return will force this method to exit here so the rest of 
 		# the code won't be executed and the profile view won't be displayed.

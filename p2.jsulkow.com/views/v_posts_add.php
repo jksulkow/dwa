@@ -1,6 +1,6 @@
 <form method='POST' action='/posts/p_add'>
 
-	<strong>New Post:</strong><br>
+	<div class="text">Your Post:</div>
 	<textarea name='content'></textarea>
 
 	<br><br>
