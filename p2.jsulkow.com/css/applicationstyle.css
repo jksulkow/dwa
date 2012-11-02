@@ -21,16 +21,19 @@ body {
     background-color: black;
 }
 
+/* left third of the page*/
 .leftside {
     width: 33%;
     float: left;
 }
 
+/* middle third of the page*/
 .middle {
     width: 33%;
     float: left;
 }
 
+/* right third of the page*/
 .rightside {
     width: 33%;
     float: right;
@@ -46,7 +49,25 @@ body {
     font-family: FontleroyBrownRegular, Helvetica, sans-serif;
     font-size: 48px;
     }
-    
+
+/* labels of personal info */
+.aboutme, .aboutinfo {
+    font-family: FontleroyBrownRegular, Helvetica, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.aboutinfo {
+    text-shadow:2px 2px #5F9EA0; 
+}
+
+/* blank form-fill spaces */
+.profileform {
+    width: 2.75in;
+    float: right;
+}
+
+/* promotional message about joining Raven */
 .promote {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14pt;
@@ -67,6 +88,7 @@ body {
     font-size: 72px;
 }
 
+/* title of the site; logo */
 .raventitle{
     font-family: FontleroyBrownRegular, Helvetica, sans-serif;
     font-size: 40px;
@@ -94,11 +116,14 @@ body {
     padding: 5px;
 }
 
-.follow a, .unfollow a {
+.follow a, .unfollow a, .getuser a {
     width: 1in;
     float: right;
     text-align: center;
     padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: PowderBlue;
 }
 
 .unfollow a {
@@ -106,7 +131,7 @@ body {
     color: PowderBlue;
 }
 
-#menu a, .follow a, .unfollow a {
+#menu a, .follow a, .unfollow a, .getuser a  {
     font-family: Helvetica, Arial, sans-serif;
     display: inline-block;
     text-decoration: none;
@@ -115,6 +140,11 @@ body {
 #menu a, .follow a {
     color: PowderBlue;
     background-color: black;
+}
+
+.getuser a {
+    color: black;
+    background-color: CadetBlue;
 }
 
 #menu a {

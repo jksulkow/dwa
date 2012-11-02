@@ -110,25 +110,60 @@ class users_controller extends base_controller {
 		# the code won't be executed and the profile view won't be displayed.
 		return false;
 	}
-	
-	# Setup view
+        
+        # Setup view
 	$this->template->content = View::instance('v_users_profile');
 	$this->template->title   = "Profile of ".$this->user->first_name;
-        
-        
-    	# Load CSS / JS
-		$client_files = Array(
-				"/views/applicationstyle.css",
-				"/js/users.js",
-	            );
-	
-        $this->template->client_files = Utils::load_client_files($client_files);   
+  
+        #var_dump($this->user);
         	
 	# Render template
 	echo $this->template;
     }
     
-    public function aboutMe() {
-        $this->template->content = View::instance('v_users_aboutme');
+    public function editProfile() {
+        # Setup view
+	$this->template->content = View::instance('v_users_editprofile');
+		
+	# Render template
+	echo $this->template;
+    }
+    
+    public function p_editProfile() {
+		
+	# Unix timestamp of when this user was modified
+	$_POST['modified'] = Time::now();
+        
+        $w = "WHERE user_id = ".$this->user->user_id;
+		
+	# Insert
+	DB::instance(DB_NAME)->update("users", $_POST, $w);
+        
+        Router::redirect("/users/profile");
+
+    }
+    
+    public function getProfile ($friend = NULL) {
+        
+        # Setup view
+	$this->template->content = View::instance('v_users_profile');
+        
+       # Query to retrieve the  person's profile data elements
+            $q = "SELECT first_name, last_name, lives_in, job, favorite_poet 
+		FROM users
+		WHERE user_id = ".$friend;
+	
+	# Execute our query, storing the results in a variable $person
+	$person = DB::instance(DB_NAME)->select_row($q, 'object');
+        
+        #var_dump($person);
+        
+        # Pass data to the view
+	$this->template->content->user = $person;
+               
+	$this->template->title   = "Profile of ".$person->first_name;
+        	
+	# Render template
+	echo $this->template;
     }
 }

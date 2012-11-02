@@ -7,7 +7,7 @@
 		<? foreach($users as $user): ?>
 	
 			<!-- Print this user's name -->
-			<span class="username">	<?=$user['first_name']?> <?=$user['last_name']?>
+			<span class="username">	<a href='/users/getProfile/<?=$user['user_id']?>'><?=$user['first_name']?> <?=$user['last_name']?></a>
 	<!--end of username-->
 	</span>
 	
@@ -19,7 +19,8 @@
 		<? else: ?>
 			<span class= "follow"><a href='/posts/follow/<?=$user['user_id']?>'>Follow</a></span>
 		<? endif; ?>
-	
+		
+		
 		<br><br>
 	
 	<? endforeach; ?>

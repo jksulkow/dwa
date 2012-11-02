@@ -70,7 +70,7 @@ class posts_controller extends base_controller {
 	$q="";
 	$msg = "";
 	
-	# if the array is not empty, use it in the query.
+	# if the string is not empty, use it in the query.
 	if(!empty($connections_string)) {
 		$q = "SELECT * 
 		FROM posts

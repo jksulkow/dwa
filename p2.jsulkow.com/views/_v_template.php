@@ -29,7 +29,8 @@
 			<a href='/posts/users'>Follow/Unfollow</a>
 			<a href='/posts/'>View posts</a>
 			<a href='/posts/add'>Add a new post</a>
-			<a href='/users/profile'>My Profile</a>
+			<a href='/users/profile'>View My Profile</a>
+			<a href='/users/editProfile'>Edit My Profile</a>
 		
 		<!-- Menu options for users who are not logged in -->	
 		<? else: ?>
