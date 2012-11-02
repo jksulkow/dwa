@@ -77,6 +77,10 @@ body {
     box-shadow: 10px 10px 2px CadetBlue;
 }
 
+.promote a, .promote a:visited {
+    color: PowderBlue;
+}
+
 /* display error messages*/
 .error {
     color: red;
