@@ -9,15 +9,15 @@
         <div class="aboutme">
             <form method='POST' action='/users/p_editProfile'>
         
-                I Live In
+                I Live In<br>
                 <span class="profileform"><input type='text' name='lives_in'></span>
                 <br>
     
-                My Job Is
+                My Job Is<br>
                 <span class="profileform"><input type='text' name='job'></span>
                 <br>
                    
-                Favorite Poet
+                Favorite Poet<br>
                 
                 <span class="profileform"><input type='text' name='favorite_poet'></span>
                 <br>
