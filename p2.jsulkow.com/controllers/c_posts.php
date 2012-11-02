@@ -7,7 +7,8 @@ class posts_controller extends base_controller {
 		
 		# Make sure user is logged in if they want to use anything in this controller
 		if(!$this->user) {
-			die("Members only. <a href='/users/login'>Please log in to use the site.</a>");
+			# Send user to the login page
+			Router::redirect("/users/login");
 		}
 		
 	}
