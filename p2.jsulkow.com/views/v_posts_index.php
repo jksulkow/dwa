@@ -1,8 +1,8 @@
 
  <div class="middle">
-    <div class="text">
+    <span class="button">
     <?=$msg?>
-    </div>
+    </span>
     <br><br>
 <? foreach($posts as $post): ?>
 	

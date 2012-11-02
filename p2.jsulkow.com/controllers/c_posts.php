@@ -90,7 +90,7 @@ class posts_controller extends base_controller {
 		where user_id = ".$this->user->user_id."
 		order by posts.created desc";
 		
-		$msg = "Follow friends to see their posts.";
+		$msg = "<a href='/posts/users'>No posts?  Follow some friends!</a>";
 	}
 	
 	# Run our query, store the results in the variable $posts

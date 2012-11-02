@@ -135,13 +135,13 @@ body {
     color: PowderBlue;
 }
 
-#menu a, .follow a, .unfollow a, .getuser a  {
+#menu a, .follow a, .unfollow a, .getuser a, .button a  {
     font-family: Helvetica, Arial, sans-serif;
     display: inline-block;
     text-decoration: none;
 }
 
-#menu a, .follow a {
+#menu a, .follow a, .button a {
     color: PowderBlue;
     background-color: black;
 }
@@ -151,12 +151,12 @@ body {
     background-color: CadetBlue;
 }
 
-#menu a {
-    font-size: .4em;
+#menu a, .button a {
+    font-size: 16px;
     padding: 10px;  
     }
 
-#menu a:hover, .follow a:hover, .unfollow a:hover {
+#menu a:hover, .follow a:hover, .unfollow a:hover, .button a:hover {
     background-color: PowderBlue;
     color: black;
     box-shadow: 5px 5px 2px #888888;
