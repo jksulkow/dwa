@@ -8,41 +8,35 @@
 		and where you want to shop for it. <br> <br>
 	</div>
 	
-	<div id="mylist">
+	<div>
 
 		
 		<? foreach ($listitems as $listitem): ?>
 		
 			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient'>
-			<a onclick='addgift(<?=$listitem['recipient_occasion_id']?>);' href='#'>Add Gift</a>
+				<a onclick='addgift(<?=$listitem['recipient_occasion_id']?>);' href='#'>Add Gift</a>
 
-			<?=$listitem['nickname']?>
-			<?=$listitem['occasion_name']?>
-			<span class="hidden"><?=$listitem['recipient_occasion_id']?></span>
-			V
-			<br>
-			<? foreach ($listitem["gifts"] as $gift): ?>
+				<?=$listitem['nickname']?>
+				<?=$listitem['occasion_name']?>
+				<span class="hidden"><?=$listitem['recipient_occasion_id']?></span>
+				<div class="arrow">V</div>
+				<br>
+				<div class="contents">
+				<? foreach ($listitem["gifts"] as $gift): ?>
 			
-			<?=$gift['gift_name']?>
-			<?=$gift['location']?>
-			<?=$gift['got_it']?>
-			<br>
-			<? endforeach; ?>
+					<?=$gift['gift_name']?>
+					<?=$gift['location']?>
+					<?=$gift['got_it']?>
+				<br>
+				<? endforeach; ?>
+				</div>
 			
 
-				
+			</div>	
 		<? endforeach; ?>
-			</div>
+			
 		
 		
 		
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	
-</div>

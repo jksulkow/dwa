@@ -2,7 +2,7 @@
         <div class="text">Sign Up Here.</div>
 <form method='POST' action='/users/p_signup'>
     First Name<br>
-    <input type='text' name='first_name'>
+    <input type='text' id="firstname" name='first_name'>
         
     <br><br>
     
@@ -12,11 +12,11 @@
     <br><br>
     
     Email<br>
-    <input type='text' name='email'>
+    <input type='text' id="email" name='email'>
     <br><br>
     
     Password<br>
-    <input type='password' name='password'>
+    <input type='password' id="password" name='password'>
     <br><br>
     
     <input type='submit'>
