@@ -13,20 +13,23 @@
 		
 		<? foreach ($listitems as $listitem): ?>
 		
-			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient'>
-				<a onclick='addgift(<?=$listitem['recipient_occasion_id']?>);' href='#'>Add Gift</a>
+			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient' data-ro_id="<?=$listitem['recipient_occasion_id']?>">
+				<a class="addgift" href='#'>Add Gift</a>
 
 				<?=$listitem['nickname']?>
 				<?=$listitem['occasion_name']?>
-				<span class="hidden"><?=$listitem['recipient_occasion_id']?></span>
+				
 				<div class="arrow">V</div>
 				<br>
 				<div class="contents">
 				<? foreach ($listitem["gifts"] as $gift): ?>
-			
+					<div class='giftlist' data-giftid="<?=$gift['gift_id']?>" data-giftname="<?=$gift['gift_name']?>" data-giftlocation="<?=$gift['location']?>" data-giftgot="<?=$gift['got_it']?>">
 					<?=$gift['gift_name']?>
 					<?=$gift['location']?>
 					<?=$gift['got_it']?>
+				
+					<a class="editgift" href='#'>Edit</a>
+					</div>
 				<br>
 				<? endforeach; ?>
 				</div>

@@ -78,6 +78,24 @@ class gifts_controller extends base_controller {
 		Router::redirect("/gifts/");
 	}
 	
+	public function p_editgift() {
+		
+		$g_id = $_POST['gift_id'];
+		#var_dump($g_id);
+		
+		# Unix timestamp of when the gift was modified
+		$_POST['modified'] = Time::now();
+		
+		$got_it;
+		if(!isset($_POST['got_it'])){
+			$_POST['got_it'] = 0;
+		}
+		
+		DB::instance(DB_NAME)->update('gifts', $_POST, "WHERE gift_id =".$g_id);
+		
+		Router::redirect("/gifts/");
+	}
+	
 	public function index() {
 
 	# Set up view
@@ -107,7 +125,7 @@ class gifts_controller extends base_controller {
 	for ($i = 0; $i < count($listitems); $i++) {
 		
 		# Build a query of each recipient-occasion's gifts
-		$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it
+		$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
 		FROM gifts g
 		JOIN recipients_occasions ro ON ro.recipient_occasion_id = g.recipient_occasion_id
 		JOIN users_recipients ur ON ur.user_recipient_id = ro.user_recipient_id
