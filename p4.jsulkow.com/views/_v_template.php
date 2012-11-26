@@ -4,7 +4,7 @@
 	<title><?=@$title; ?></title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<!--<link rel="stylesheet" type="text/css" href="/css/applicationstyle.css" />-->
+	<link rel="stylesheet" type="text/css" href="/css/applicationstyle.css" />
 	
 	<!-- JS -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -16,17 +16,19 @@
 </head>
 
 <body>
+		<div id='logo'>
+			<a href='/gifts/'><img src='/images/giftrlogo.png'></a>
+		</div>
+		<!--logo image created by Jonathan Sulkow-->
 		
-		<span id='menu'>
+		<div id='menu'>
 	
 		<!--Menu for users who are logged in -->
 		<? if($user): ?>
 			
 			<a href='/users/logout'>Logout</a>
-
-			<a href='/gifts/'>View My List</a>
-			<a href='/gifts/addrecipient/'>Add A Recipient</a>
-			
+			<a href='/gifts/'>View My Giftr</a>
+			<a href='/gifts/addrecipient/'>Add A Giftee</a>
 		
 		<!-- Menu options for users who are not logged in -->	
 		<? else: ?>
@@ -35,12 +37,9 @@
 			<a href='/users/login'>Log in</a>
 		
 		<? endif; ?>
-		</span>
+		
 		</div>
-	</div>
 
-	
-	<br>
 
 	<?=$content;?>
 

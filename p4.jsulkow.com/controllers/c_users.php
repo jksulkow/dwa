@@ -14,31 +14,37 @@ class users_controller extends base_controller {
         
         # Set up the view
         $this->template->content = View::instance("v_users_signup");
-	$this->template->title = "My Gift Helper Signup";
-        
+	$this->template->title = "GIFTR Signup";
+	
         # Render the view
         echo $this->template;
     }
     
-    public function p_signup($error = NULL) {
+    public function p_signup() {
+	$errormsg ="";
        
        if( strlen($_POST['password']) < 6) {
 	    echo nl2br ("Password too short; must be at least 6 characters\n\r");
+	    $errormsg = '1';
+	    # Work on trying to display actual error message text in a view.
        }
        
        if( strlen($_POST['first_name']) < 1) {
 	    echo nl2br ("Please enter your first name.\n\r");
+	    $errormsg = '1';
        }
        
        if( strlen($_POST['last_name']) < 1) {
 	    echo nl2br ("Please enter your last name.\n\r");
+	    $errormsg = '1';
        }
        
        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 	    echo nl2br ("The email address you entered is invalid.\n\r");
+	    $errormsg = '1';
 	}
        
-       else {
+       if (strlen($errormsg) == 0) {
         # encrypt the password
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
         
@@ -62,7 +68,7 @@ class users_controller extends base_controller {
 
 	# Setup view
 		$this->template->content = View::instance('v_users_login');
-		$this->template->title = "My Gift Helper Login";
+		$this->template->title = "GIFTR Login";
         # Pass data to the view
 		$this->template->content->error  = $error;
 		
@@ -118,27 +124,6 @@ class users_controller extends base_controller {
 	setcookie("token", "", strtotime('-1 year'), '/');
 	
 	Router::redirect("/users/login");
-    }
-    
-    public function gifts() {
-        
-	# If user is blank, they're not logged in, redirect to signup/login page
-	if(!$this->user) {
-		Router::redirect("/users/login");
-		
-		# Return will force this method to exit here so the rest of 
-		# the code won't be executed and the profile view won't be displayed.
-		return false;
-	}
-        
-        # Setup view
-	$this->template->content = View::instance('v_javascript_gifthelper');
-	$this->template->title   = $this->user->first_name."'s Gift Checklist";
-  
-        #var_dump($this->user);
-        	
-	# Render template
-	echo $this->template;
     }
     
 }

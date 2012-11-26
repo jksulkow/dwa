@@ -1,26 +1,32 @@
- <div class="middle">
-        <div class="text">Sign Up Here.</div>
-<form method='POST' action='/users/p_signup'>
+
+       <h1>Sign Up Here.</h1>
+       
+<form id="signup" method='POST' action='/users/p_signup'>
     First Name<br>
     <input type='text' id="firstname" name='first_name'>
+       <span id='firstnamemsg'></span>
         
     <br><br>
     
     Last Name
     <br><br>
-    <input type='text' name='last_name'>
+    <input type='text' id="lastname" name='last_name'>
+       <span id='lastnamemsg'></span>
     <br><br>
     
     Email<br>
     <input type='text' id="email" name='email'>
+       <span id='emailmsg'></span>
     <br><br>
     
     Password<br>
     <input type='password' id="password" name='password'>
+       <span id='passwordmsg'></span>
     <br><br>
     
     <input type='submit'>
     
 </form>
 
-</div>
+
+

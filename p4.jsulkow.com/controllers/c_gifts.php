@@ -17,7 +17,7 @@ class gifts_controller extends base_controller {
 	
 		# Setup view
 		$this->template->content = View::instance('v_gifts_addrecipient');
-		$this->template->title   = "Add A New Recipient";
+		$this->template->title   = "Add A New Giftee";
 			
 		# Render template
 		echo $this->template;
@@ -37,7 +37,7 @@ class gifts_controller extends base_controller {
 		
 		# Create an array containing the recipient ID and user ID.
 		$user_recip = array("recipient_id" =>$recipient, "user_id"=>$this->user->user_id);
-		#var_dump($user_recip);
+		var_dump($user_recip);
 		
 		# Create a relationship between the user and the recipient
 		# Also store the returned ID in a variable.
@@ -81,7 +81,6 @@ class gifts_controller extends base_controller {
 	public function p_editgift() {
 		
 		$g_id = $_POST['gift_id'];
-		#var_dump($g_id);
 		
 		# Unix timestamp of when the gift was modified
 		$_POST['modified'] = Time::now();
@@ -96,18 +95,36 @@ class gifts_controller extends base_controller {
 		Router::redirect("/gifts/");
 	}
 	
+	public function p_editdone() {
+		$giftee_id = $_POST['recipient_occasion_id'];
+		
+		
+		DB::instance(DB_NAME)->update('recipients_occasions', $_POST, "WHERE recipient_occasion_id =".$giftee_id);
+		Router::redirect("/gifts/");
+	}
+	
 	public function index() {
+		
+	# If user is blank, they're not logged in, redirect to signup/login page
+	if(!$this->user) {
+		Router::redirect("/users/login");
+		
+		# Return will force this method to exit here so the rest of 
+		# the code won't be executed and the profile view won't be displayed.
+		return false;
+	}
 
 	# Set up view
 	$this->template->content = View::instance('v_javascript_gifthelper');
-	$this->template->title   = "My Gift Helper Shopping List";
+	$this->template->title   = $this->user->first_name."'s GIFTR";
 	
-	# Specify what JS/CSS files we need to load in the view
+	# Specify what JS/CSS files we need to load
 		$client_files = Array(
+			"/js/giftr.js",
 			"/js/gifthelper.js"
 			);
-	# Load the above specified files
-		$this->template->client_files = Utils::load_client_files($client_files);		
+		# Load the above specified files
+		$this->template->client_files = Utils::load_client_files($client_files);
 	
 	# Build a query of this user's recipients-occasions 
 	$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name

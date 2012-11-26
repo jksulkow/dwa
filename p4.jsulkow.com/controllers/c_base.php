@@ -25,6 +25,13 @@ class base_controller {
 		# So we can use $user in views			
 			$this->template->set_global('user', $this->user);
 			
+		# Specify what JS/CSS files we need to load
+		$client_files = Array(
+			"/js/gifthelper.js"
+			);
+		# Load the above specified files
+		$this->template->client_files = Utils::load_client_files($client_files);	
+			
 	}
 	
 } # eoc

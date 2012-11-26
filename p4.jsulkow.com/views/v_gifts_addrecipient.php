@@ -1,6 +1,6 @@
 
 <form method='POST' action='/gifts/p_addrecipient'>
-    Nickname<br>
+    <h2>Giftee's Nickname</h2>
     <input type='text' name='nickname'>
         
 

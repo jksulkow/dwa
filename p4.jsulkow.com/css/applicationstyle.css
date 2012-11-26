@@ -1,10 +1,75 @@
+/*
+ * Web Fonts from fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at http://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2012 Fontspring
+ *
+ *
+ *
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      exljbris
+ * License URL: http://www.fontspring.com/fflicense/exljbris
+ *
+ *
+ */
+
+@font-face {
+    font-family: 'MuseoSlab500Regular';
+    src: url('Museo_Slab_500-webfont.eot');
+    src: url('Museo_Slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Museo_Slab_500-webfont.woff') format('woff'),
+         url('Museo_Slab_500-webfont.ttf') format('truetype'),
+         url('Museo_Slab_500-webfont.svg#MuseoSlab500Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: MuseoSlab500Regular, monospace;
+    font-size: 14px;
+    background-color: #C2FFFF;
+    padding: 20px; 50px; 50px; 50px;
+}
+
+#logo {
+    width: 135px;
+    height: 49px;
+    margin-bottom: 10px;
+}
+
+#menu a{
+    background-color: #FF6600;
+    color: #FFE0CC;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16pt;
+    padding: 10px;
+    
+    /*rounded box corners from CSS3 Please */
+    -webkit-border-radius: 12px; /* Safari 3-4, iOS 1-3.2, Android ²1.6 */
+    border-radius: 12px; /* Opera 10.5, IE9+, Safari 5, Chrome, Firefox 4+, iOS 4, Android 2.1+ */
+
+  /* useful if you don't want a bg color from leaking outside the border: */
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+}
+
 .contents {
                 display:none;
                 overflow:hidden;
             }
             
-            .arrow a{
-                background-image:url("/images/giftAccordionArrow.png");
+            .arrow {
+                background-image:url(/images/giftAccordionArrow.png);
                 height:20px;
                 width:20px;
                 display:block;
@@ -15,18 +80,121 @@
             
             
             
-            .arrow a .open {
+            .arrow.open {
                 background-position:0px 0px;
             }
             
-            .arrow a.close {
+            .arrow.close {
                 background-position:-20px 0px;
             }
             
-            .arrow a.open:hover {
+            .arrow.open:hover {
                 background-position:0px -20px;
             }
             
-            .arrow a.close:hover {
+            .arrow.close:hover {
                 background-position:-20px -20px;
             }
+
+.recipient {
+            background-color: white;
+            margin: 10px; 50px; 10px; 50px;
+            padding: 10px;
+}
+
+.addgiftbutton {
+            float: right;
+            padding: 10px;
+            background-color: #FFE0CC;
+            /*rounded box corners from CSS3 Please */
+            -webkit-border-radius: 12px; /* Safari 3-4, iOS 1-3.2, Android ²1.6 */
+            border-radius: 12px; /* Opera 10.5, IE9+, Safari 5, Chrome, Firefox 4+, iOS 4, Android 2.1+ */
+
+            /* useful if you don't want a bg color from leaking outside the border: */
+            -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+}
+
+.editgiftbutton {
+            float: right;
+            margin: 2px;
+            padding: 5px;
+            background-color: #FFE0CC;
+            /*rounded box corners from CSS3 Please */
+            -webkit-border-radius: 12px; /* Safari 3-4, iOS 1-3.2, Android ²1.6 */
+            border-radius: 12px; /* Opera 10.5, IE9+, Safari 5, Chrome, Firefox 4+, iOS 4, Android 2.1+ */
+            -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+}
+
+.addgiftbutton a, .editgiftbutton a {
+            color:#FF6600;
+            text-decoration: none;
+            
+}
+
+.done0, .got_icon0 {
+        float: left;
+        margin: 1px; 10px; 1px; 1px;
+}
+
+.done0 span, .got_icon0 span {
+        
+        height: 16px;
+        width: 16px;
+        display: block;
+}
+
+.done0 span {
+    background-image:url(/images/checkbox_no.png);
+}
+
+.done1, .got_icon1 {
+        float: left;
+        margin: 1px; 10px; 1px; 1px;
+}
+
+.done1 span, .got_icon1 span {
+        background-image:url(/images/checkmark.png);
+        height: 20px;
+        width: 20px;
+        display: block;
+        
+}
+
+.giftee, .occasion {
+        margin-left: 25px;
+}
+
+.gift_name {
+        margin-left: 40px;
+        float: left;
+        width: 25%;
+}
+
+.location {
+        float: left;
+        width:15%;
+}
+
+.answer {
+        float: left;
+        width: 15%;
+}
+
+.got_it {
+        float: left;
+        width: 8%;
+}
+
+.validate.valid {
+        display: none;
+}
+
+.validate.invalid {
+        color: red;
+}
+
+
+.clear {
+    float:none;
+    clear:both;
+}
