@@ -37,7 +37,7 @@ class gifts_controller extends base_controller {
 		
 		# Create an array containing the recipient ID and user ID.
 		$user_recip = array("recipient_id" =>$recipient, "user_id"=>$this->user->user_id);
-		var_dump($user_recip);
+		#var_dump($user_recip);
 		
 		# Create a relationship between the user and the recipient
 		# Also store the returned ID in a variable.
