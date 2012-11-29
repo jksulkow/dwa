@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+  <head>
+       <link rel="stylesheet" type="text/css" href="css/style.css" />
+   <title>
+         Jennifer Sulkow P4 Proposal
+    </title>
+ </head>
+ <body>
+     <div class= 'mainpage'>
+      <h1>GIFTR App</h1>
+      <h3>Project 4 Expansion: Social Features and Other Improvements</h3>
+      <p>
+          CSCI E-75 Project 3 & 4<br>
+          Jennifer Sulkow
+      </p>
+      <h2>Background</h2>
+      <p>The GIFTR app was started for Project 3.  The purpose of the application is explained here:
+      <a href='http://jsulkow.com/dwa/p3-proposal/'>P3 Proposal</a>
+      </p>  
+      
+      <h2>New: Social Feature</h2>
+      <p>For project 4, my plan is to add a social feature to GIFTR, allowing a user to be someone's else's "giftee" (a person they
+      plan to buy a gift for).  Users will have the ability to write their own "wish list" so other users (with whom they
+      are linked) can see what sorts of things they like.  Each user's gift shopping list is private, however.  This is not
+      a gift registry where one would track whether items on the wish list have actually been received.  GIFTR is for sharing
+      wish-list ideas and organizing one's own private holiday shopping plan.</p>
+      
+      <h2>New: Improved Usability</h2>
+      <p>The project 3 version of GIFTR was delivered with some features that work, but could be improved.
+      For example, the ability to add a checkmark when a gift is purchased.  Editing of any kind requires the user to
+      click the "Edit" button at the far right (see below).  Ideally, I think the user would want to click in the area of
+      the "Got It?" label without hitting an Edit button first, and just have the checkmark toggle on and off.</p>
+      
+      <img src='GIFTR_Edit.png' alt='GIFTR Screen Shot' />
+      
+      <p>Another example is the error messaging that appears if the user enters incorrect information on the signup
+      page.  The validation is done on the server side, but the messaging is ugly (see below).  I would prefer to use javascript to
+      supplement the server-side validation, by screening out user errors with a friendly message on the form entry page.
+      I believe there is a jQuery plug-in for form validation that I'd like to try.</p>
+      <img src='Error_msg.png' alt='GIFTR Error Message' />
+         
+      <h2>Architecture</h2>
+      <p>The GIFTR application so far is built on the class framework, using HTML/CSS and Javascript/jQuery for client
+      presentation,  PHP on the server side, with a MySQL database.  Below is a rough diagram of the database, with a new
+      "wish_items" table for the wishlist functionality.  The original project 3 database was built to support multiple
+      users with an association between users and "giftees" (recipients); in project 4, a user can be someone else's recipient.
+      Note that the database is also intended to support multiple occasions, but it's unclear whether I'll have enough
+      time to implement this (it's not entirely simple; birthdays would need to be unique to a user, while holidays are more
+      universal, and then there are anniversaries which could imply a pair of giftees per gift!).  Improvements to the
+      occasions functionality remains a stretch goal. </p>
+      <img src='GIFTR_DB.jpg' alt='GIFTR Database Diagram' />
+     
+      
+      
+      </div>
+ </body>
+ </html>
