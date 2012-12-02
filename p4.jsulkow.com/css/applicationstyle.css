@@ -114,7 +114,7 @@ body {
             -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 
-.editgiftbutton {
+.editgiftbutton, .deletegiftbutton {
             float: right;
             margin: 2px;
             padding: 5px;
@@ -125,7 +125,7 @@ body {
             -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 
-.addgiftbutton a, .editgiftbutton a {
+.addgiftbutton a, .editgiftbutton a, .deletegiftbutton a {
             color:#FF6600;
             text-decoration: none;
             

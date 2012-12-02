@@ -5,7 +5,8 @@
 		<h2>Get Started!</h2>
 		A Giftee is someone you want to buy a gift for, such as "Mom".  Add a giftee!<br>
 		Now add a gift idea using the Add Gift button next to the Giftee.
-		Make sure you say where you want to shop for it, too. <br> <br>
+		Make sure you say where you want to shop for it, too. <br>
+		Use the Edit button to change a gift or to place a checkmark next to "got it".<br><br>
 	</div>
 	
 	<div id="giftlist">
@@ -35,6 +36,7 @@
 					
 				
 					<div class="editgiftbutton"><a class="editgift" href='#'>Edit</a></div>
+					<div class="deletegiftbutton"><a class="deletegift" href='#'>Delete</a></div>
 					<div class="clear"></div>
 					</div>
 				<br>

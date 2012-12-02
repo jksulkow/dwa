@@ -103,6 +103,15 @@ class gifts_controller extends base_controller {
 		Router::redirect("/gifts/");
 	}
 	
+	#p4 -- added delete function
+	public function p_deletegift() {
+		$g_id = $_POST['gift_id'];
+		#echo "gift id is $g_id";
+		
+		DB::instance(DB_NAME)->delete('gifts', "WHERE gift_id =".$g_id);
+		Router::redirect("/gifts/");
+	}
+	
 	public function index() {
 		
 	# If user is blank, they're not logged in, redirect to signup/login page

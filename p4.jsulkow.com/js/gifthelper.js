@@ -23,21 +23,23 @@ $(document).ready(function() { // start doc ready; do not delete this!
         editdone1(this);
     });
     
-    
-    
     //add a delete gift function in p4
+    $(".deletegift").click(function() {
+        deletegift(this);
+    });
 
 }); // end doc ready; do not delete this!
 
+    //p4--labeled submit button 'add'
     function addgift(id){
         giftee_id = $(id).parent().parent().data('ro_id');
 
-    form="<form method='POST' class='eform' action='/gifts/p_addgift'>Name of Gift <input type='text' name='gift_name'><br>Where to Buy It<input type='text' name='location'><br><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'>Got It?<input type='checkbox' name='got_it' value='1'> <br><input type='submit'></form>"
+    form="<form method='POST' class='eform' action='/gifts/p_addgift'>Name of Gift <input type='text' name='gift_name'><br>Where to Buy It<input type='text' name='location'><br><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'>Got It?<input type='checkbox' name='got_it' value='1'> <br><input type='submit' value='Add'></form>"
    // alert(rec);
      $(id).parent().append(form);
 }
 
-
+    //p4--labled submit button 'Edit Gift'
     function editgift(id){
         giftname = $(id).parent().parent().data('giftname');
         giftlocation= $(id).parent().parent().data('giftlocation');
@@ -48,12 +50,18 @@ $(document).ready(function() { // start doc ready; do not delete this!
             checkedval = "checked";
         }
         
-        form="<form method='POST' action='/gifts/p_editgift'>Name of Gift <input type='text' name='gift_name' value='"+giftname+"'><br>Where to Buy It<input type='text' name='location' value='"+giftlocation+"'>Got It?<input type='checkbox' name='got_it' value='1' "+checkedval+"> <br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit'></form>"
+        form="<form method='POST' action='/gifts/p_editgift'>Name of Gift <input type='text' name='gift_name' value='"+giftname+"'><br>Where to Buy It<input type='text' name='location' value='"+giftlocation+"'>Got It?<input type='checkbox' name='got_it' value='1' "+checkedval+"> <br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Edit Gift'></form>"
         $(id).parent().append(form);
     }
     
     
     //add a delete gift function in p4.
+    function deletegift(id) {
+        giftid = $(id).parent().parent().data('giftid');
+        giftname = $(id).parent().parent().data('giftname');
+        form="<form method='POST' action='/gifts/p_deletegift'>Gift <input type='text' name='gift_name' value='"+giftname+"' readonly='readonly'><br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Delete'></form>"
+        $(id).parent().append(form);
+    }
 
 
     //create an accordion effect, showing or
