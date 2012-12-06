@@ -45,21 +45,27 @@ class users_controller extends base_controller {
 	}
        
        if (strlen($errormsg) == 0) {
-        # encrypt the password
-        $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-        
-        # additional info
-        $_POST['created'] = Time::now();
-        $_POST['modified'] = Time::now();
-        $_POST['token']    = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
-        
-        
-        # Put the data in the database
-        # call method 'insert', pass it the table name and fields
-        DB::instance(DB_NAME)->insert('users', $_POST);
-        
-        # Send user to the login page
-	Router::redirect("/users/login");
+	    # encrypt the password
+	    $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+	    
+	    # additional info
+	    $_POST['created'] = Time::now();
+	    $_POST['modified'] = Time::now();
+	    $_POST['token']    = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+	    
+	    
+	    # Create an entry in the users table
+	    $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
+	    
+	    # Additionally, create an entry in the recipients table
+	    # so this user can be anyone else's recipient
+	    
+	    $data['nickname'] = $_POST['first_name'];
+	    $data['user_id'] = $user_id;
+	    DB::instance(DB_NAME)->insert('recipients', $data);
+	    
+	    # Send user to the login page
+	    Router::redirect("/users/login");
        }
     }
     

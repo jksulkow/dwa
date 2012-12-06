@@ -19,7 +19,7 @@
        <span id='emailmsg'></span>
     <br><br>
     
-    Password<br>
+    Password (at least 6 characters)<br>
     <input type='password' id="password" name='password'>
        <span id='passwordmsg'></span>
     <br><br>
@@ -27,6 +27,10 @@
     <input type='submit'>
     
 </form>
+
+<div id="signup_error">
+       
+</div>
 
 
 

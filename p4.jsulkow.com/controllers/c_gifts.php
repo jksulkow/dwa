@@ -114,63 +114,145 @@ class gifts_controller extends base_controller {
 	
 	public function index() {
 		
-	# If user is blank, they're not logged in, redirect to signup/login page
-	if(!$this->user) {
-		Router::redirect("/users/login");
-		
-		# Return will force this method to exit here so the rest of 
-		# the code won't be executed and the profile view won't be displayed.
-		return false;
-	}
-
-	# Set up view
-	$this->template->content = View::instance('v_javascript_gifthelper');
-	$this->template->title   = $this->user->first_name."'s GIFTR";
+		# If user is blank, they're not logged in, redirect to signup/login page
+		if(!$this->user) {
+			Router::redirect("/users/login");
+			
+			# Return will force this method to exit here so the rest of 
+			# the code won't be executed and the profile view won't be displayed.
+			return false;
+		}
 	
-	# Specify what JS/CSS files we need to load
+		# Set up view
+		$this->template->content = View::instance('v_javascript_gifthelper');
+		$this->template->title   = $this->user->first_name."'s GIFTR";
+		
+		# Specify what JS/CSS files we need to load
 		$client_files = Array(
 			"/js/giftr.js",
 			"/js/gifthelper.js"
 			);
 		# Load the above specified files
 		$this->template->client_files = Utils::load_client_files($client_files);
-	
-	# Build a query of this user's recipients-occasions 
-	$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name
-		FROM recipients r
-		JOIN users_recipients ur ON ur.recipient_id = r.recipient_id
-		JOIN recipients_occasions ro ON ro.user_recipient_id = ur.user_recipient_id
-		JOIN occasions o ON o.occasion_id = ro.occasion_id	
-		WHERE ur.user_id = ".$this->user->user_id;
-	
-	# Execute our query, storing the results in a variable $listitems
-	$listitems = DB::instance(DB_NAME)->select_rows($q1);
-	
-	# Add an element to each item in $listitems, where the new element is an array of gifts
-	#
-	for ($i = 0; $i < count($listitems); $i++) {
 		
-		# Build a query of each recipient-occasion's gifts
-		$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
-		FROM gifts g
-		JOIN recipients_occasions ro ON ro.recipient_occasion_id = g.recipient_occasion_id
-		JOIN users_recipients ur ON ur.user_recipient_id = ro.user_recipient_id
-		WHERE ro.recipient_occasion_id = ".$listitems[$i]["recipient_occasion_id"]." AND
-		ur.user_id = ".$this->user->user_id;
+		# Build a query of this user's recipients-occasions 
+		$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name
+			FROM recipients r
+			JOIN users_recipients ur ON ur.recipient_id = r.recipient_id
+			JOIN recipients_occasions ro ON ro.user_recipient_id = ur.user_recipient_id
+			JOIN occasions o ON o.occasion_id = ro.occasion_id	
+			WHERE ur.user_id = ".$this->user->user_id;
 		
-		#var_dump($q2);
+		# Execute query, storing the results in a variable $listitems
+		$listitems = DB::instance(DB_NAME)->select_rows($q1);
 		
-		$listitems[$i]["gifts"]= DB::instance(DB_NAME)->select_rows($q2);
-		#var_dump($listitems);
+		# Add an element to each item in $listitems, where the new element is an array of gifts
+		
+		for ($i = 0; $i < count($listitems); $i++) {
+		
+			# Build a query of each recipient-occasion's gifts
+			$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
+			FROM gifts g
+			JOIN recipients_occasions ro ON ro.recipient_occasion_id = g.recipient_occasion_id
+			JOIN users_recipients ur ON ur.user_recipient_id = ro.user_recipient_id
+			WHERE ro.recipient_occasion_id = ".$listitems[$i]["recipient_occasion_id"]." AND
+			ur.user_id = ".$this->user->user_id;
+			
+			#var_dump($q2);
+			
+			$listitems[$i]["gifts"]= DB::instance(DB_NAME)->select_rows($q2);
+			#var_dump($listitems);
+		}
+	
+	
+		# Pass data to the view
+		$this->template->content->listitems = $listitems;
+		
+		# Render view
+		echo $this->template;
+	
 	}
 	
+	# A recipient may be another user.  View users whom you may want to gift.
+	public function find_friends() {
 	
-	# Pass data to the view
-	$this->template->content->listitems = $listitems;
+		# Set up the view
+		$this->template->content = View::instance("v_gifts_friends");
+		$this->template->title   = "Find Friends";
+		
+		# Build our query to get all the potential recipients who are users
+		$q = "SELECT r.*, u.first_name, u.last_name
+			FROM recipients r
+			JOIN users u on u.user_id = r.user_id
+			WHERE r.user_id <> ".$this->user->user_id;
+			
+		# Execute the query & store the result array in the variable $recipients
+		$recipients = DB::instance(DB_NAME)->select_rows($q);
+		
+		# Who is the user already friends with
+		$q = "SELECT * 
+			FROM users_recipients
+			WHERE user_id = ".$this->user->user_id;
+			
+		# Execute this query with the select_array method
+		$friends = DB::instance(DB_NAME)->select_array($q, 'recipient_id');
+		
+		#var_dump($friends);
+				
+		# Pass recipients and friends to the view
+		$this->template->content->recipients   = $recipients;
+		$this->template->content->friends = $friends;
 	
-	# Render view
-	echo $this->template;
+		# Render the view
+		echo $this->template;
+	}
 	
+	# Make another user your giftee
+	public function friend($friend_user_id = NULL) {
+	
+		# Create an array of the user's and other user's IDs.
+		$data['user_id'] = $this->user->user_id;
+		$data['recipient_id'] = $friend_user_id;
+	
+		$user_recipient = DB::instance(DB_NAME)->insert("users_recipients", $data);
+		
+		# Create a relationship between the recipient and the occasion
+		# Temporary: the db contains one occasion, Christmas.  Hard-coded for now.
+		$recip_occasion = array("user_recipient_id" => $user_recipient, "occasion_id" => '2');
+		DB::instance(DB_NAME)->insert('recipients_occasions', $recip_occasion);
+	
+		Router::redirect("/gifts/find_friends");
+	}
+	
+	# Remove another user from being your giftee
+	public function unfriend($recipient_id = NULL) {
+		# Delete this relationship. This requires first deleting rows from other tables
+		# where there is a foreign key constraint.
+		
+		$q = "SELECT user_recipient_id FROM users_recipients
+		WHERE user_id = ".$this->user->user_id." AND
+		recipient_id = ".$recipient_id;
+		
+		$user_recipient = DB::instance(DB_NAME)->select_field($q);
+		
+		$q2 = "SELECT recipient_occasion_id FROM recipients_occasions
+		WHERE user_recipient_id = ".$user_recipient;
+		
+		$recipient_occasion = DB::instance(DB_NAME)->select_field($q);
+		
+		# Delete related rows from gifts table.
+		$where_condition = 'WHERE recipient_occasion_id = '.$recipient_occasion;
+		DB::instance(DB_NAME)->delete('gifts', $where_condition);
+		
+		# Delete related rows from recipients_occasions table
+		$where_condition = 'WHERE user_recipient_id = '.$user_recipient;
+		DB::instance(DB_NAME)->delete('recipients_occasions', $where_condition);
+		
+		# Delete user-giftee relationship
+		DB::instance(DB_NAME)->delete('users_recipients', $where_condition);
+	
+		Router::redirect("/gifts/find_friends");
+		
 	}
 	
 }

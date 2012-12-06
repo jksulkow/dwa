@@ -18,7 +18,13 @@ class posts_controller extends base_controller {
 		# Setup view
 		$this->template->content = View::instance('v_posts_add');
 		$this->template->title   = "Add a new post";
-			
+		
+		$client_files = Array(
+			"/js/jquery.form.js"
+		);
+		
+		$this->template->client_files = Utils::load_client_files($client_files);
+		
 		# Render template
 		echo $this->template;
 	
@@ -33,11 +39,49 @@ class posts_controller extends base_controller {
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
 		
-		# Insert
-		DB::instance(DB_NAME)->insert('posts', $_POST);
+		$new_post = DB::instance(DB_NAME)->insert('posts', $_POST);
 		
-		Router::redirect("/posts/index");
+		# another thing you can do here is inject a view into a div
+		
+		# $view = View::instance("v_whatever");
+		# echo $view;
+		# dont use template here
+		
+		if($new_post) {
+			echo 1;
+		}
+		else {
+			echo 0;
+		}
 	
+	}
+	
+	public function control_panel() {
+		
+		$this->template->content = View::instance('v_posts_control_panel');
+		
+		echo $this->template;
+		
+	}
+	
+	public function p_control_panel() {
+	
+	$data = Array();
+
+	# Find out how many posts there are
+	$q = "SELECT count(post_id) FROM posts";
+	$data['post_count'] = DB::instance(DB_NAME)->select_field($q);
+	
+	# Find out how many users there are
+	$q = "SELECT count(user_id) FROM users";
+	$data['user_count'] = DB::instance(DB_NAME)->select_field($q);
+	
+	# Find out when the last post was created
+	$q = "SELECT created FROM posts ORDER BY created DESC LIMIT 1";
+	$data['most_recent_post'] = Time::display(DB::instance(DB_NAME)->select_field($q));
+
+	# Send back json results to the JS, formatted in json
+	echo json_encode($data);
 	}
 	
 	public function index() {

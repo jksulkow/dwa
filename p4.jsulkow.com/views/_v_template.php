@@ -29,12 +29,14 @@
 			<a href='/users/logout'>Logout</a>
 			<a href='/gifts/'>View My Giftr</a>
 			<a href='/gifts/addrecipient/'>Add A Giftee</a>
+			<a href='/gifts/find_friends'>Find Friends</a>
 		
 		<!-- Menu options for users who are not logged in -->	
 		<? else: ?>
 		
 			<a href='/users/signup'>Sign up</a>
 			<a href='/users/login'>Log in</a>
+			
 		
 		<? endif; ?>
 		
