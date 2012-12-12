@@ -1,3 +1,6 @@
+//functions added or changed for p4
+//have comments starting with p4
+
 $(document).ready(function() { // start doc ready; do not delete this!
     
     //when an element with the class 'arrow' is clicked,
@@ -11,6 +14,18 @@ $(document).ready(function() { // start doc ready; do not delete this!
         addgift(this);
     });
     
+    var addGiftOptions = {
+            type: 'post',
+            url: '/gifts/p_addgift',
+            success: function(response) {
+                var gift = jQuery.parseJSON(response);
+                alert(gift);
+                $('.response').html(response);
+            }
+    };
+    
+    $('.addgiftform').ajaxForm(addGiftOptions);
+    
     $(".editgift").click(function() {
         editgift(this);
     });
@@ -22,24 +37,37 @@ $(document).ready(function() { // start doc ready; do not delete this!
     $(".done1").click(function() {
         editdone1(this);
     });
-    
-    //add a delete gift function in p4
+     
+    //p4--delete gift function
     $(".deletegift").click(function() {
         deletegift(this);
+    });
+    
+    //p4--cancel adding a gift
+    $(".canceladdgift").click(function() {
+        canceladdgift(this);
     });
 
 }); // end doc ready; do not delete this!
 
-    //p4--labeled submit button 'add'
+    
+    //p4--modified addgift to be a hidden form
     function addgift(id){
-        giftee_id = $(id).parent().parent().data('ro_id');
+        //p4 - options for ajax form
 
-    form="<form method='POST' class='eform' action='/gifts/p_addgift'>Name of Gift <input type='text' name='gift_name'><br>Where to Buy It<input type='text' name='location'><br><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'>Got It?<input type='checkbox' name='got_it' value='1'> <br><input type='submit' value='Add'></form>"
-   // alert(rec);
-     $(id).parent().append(form);
+        //alert("addgiftform");
+        
+        giftee_id = $(id).parent().parent().data('ro_id');
+        $(".addgiftform").css("display","block");
 }
 
-    //p4--labled submit button 'Edit Gift'
+    //p4--cancel adding a gift
+    function canceladdgift(id){
+        $(".addgiftform").css("display", "none");
+    }
+
+
+    //p4--labeled submit button 'Edit Gift'
     function editgift(id){
         giftname = $(id).parent().parent().data('giftname');
         giftlocation= $(id).parent().parent().data('giftlocation');
@@ -50,18 +78,20 @@ $(document).ready(function() { // start doc ready; do not delete this!
             checkedval = "checked";
         }
         
-        form="<form method='POST' action='/gifts/p_editgift'>Name of Gift <input type='text' name='gift_name' value='"+giftname+"'><br>Where to Buy It<input type='text' name='location' value='"+giftlocation+"'>Got It?<input type='checkbox' name='got_it' value='1' "+checkedval+"> <br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Edit Gift'></form>"
+        form="<form method='POST' id='editgiftform' action='/gifts/p_editgift'>Name of Gift <input type='text' name='gift_name' value='"+giftname+"'><br>Where to Buy It<input type='text' name='location' value='"+giftlocation+"'>Got It?<input type='checkbox' name='got_it' value='1' "+checkedval+"> <br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Edit Gift'></form>"
         $(id).parent().append(form);
     }
     
     
-    //add a delete gift function in p4.
+    //p4--delete gift function
     function deletegift(id) {
         giftid = $(id).parent().parent().data('giftid');
         giftname = $(id).parent().parent().data('giftname');
         form="<form method='POST' action='/gifts/p_deletegift'>Gift <input type='text' name='gift_name' value='"+giftname+"' readonly='readonly'><br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Delete'></form>"
         $(id).parent().append(form);
     }
+    
+
 
 
     //create an accordion effect, showing or

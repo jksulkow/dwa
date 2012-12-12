@@ -131,6 +131,10 @@ body {
             
 }
 
+.addgiftform {
+    display: none;
+}
+
 .done0, .got_icon0 {
         float: left;
         margin: 1px; 10px; 1px; 1px;
@@ -197,4 +201,8 @@ body {
 .clear {
     float:none;
     clear:both;
+}
+
+#listlength {
+    visibility: hidden;
 }

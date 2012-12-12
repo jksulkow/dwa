@@ -38,6 +38,7 @@ class posts_controller extends base_controller {
 		# Unix timestamp of when this post was created / modified
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
+		$_POST['city_id'] = 3;
 		
 		$new_post = DB::instance(DB_NAME)->insert('posts', $_POST);
 		

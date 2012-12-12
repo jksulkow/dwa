@@ -53,19 +53,8 @@ class gifts_controller extends base_controller {
 	
 	}
 	
-	public function addgift() {
-		
-		# the recipient_occasion_id for the gift is passed in
 	
-		# Setup view
-		$this->template->content = View::instance('v_gifts_addgift');
-		$this->template->title   = "Add A Gift Idea";
-			
-		# Render template
-		echo $this->template;
-	
-	}
-	
+	# p4 - modified to use Ajax and JSON
 	public function p_addgift() {
 					
 		# Unix timestamp of when the gift was created / modified
@@ -73,9 +62,15 @@ class gifts_controller extends base_controller {
 		$_POST['modified'] = Time::now();
 		
 		# insert the data into the database
-		DB::instance(DB_NAME)->insert('gifts', $_POST);
+		# returns the id of the row
+		$giftid = DB::instance(DB_NAME)->insert('gifts', $_POST);
 		
-		Router::redirect("/gifts/");
+		$gift = DB::instance(DB_NAME)->select_rows("SELECT * FROM gifts WHERE gift_id =".$giftid);
+		
+		# format gift array as JSON to use in javascript/ajax
+		echo json_encode($gift);
+		
+		//Router::redirect("/gifts/");
 	}
 	
 	public function p_editgift() {
@@ -126,14 +121,7 @@ class gifts_controller extends base_controller {
 		# Set up view
 		$this->template->content = View::instance('v_javascript_gifthelper');
 		$this->template->title   = $this->user->first_name."'s GIFTR";
-		
-		# Specify what JS/CSS files we need to load
-		$client_files = Array(
-			"/js/giftr.js",
-			"/js/gifthelper.js"
-			);
-		# Load the above specified files
-		$this->template->client_files = Utils::load_client_files($client_files);
+		 
 		
 		# Build a query of this user's recipients-occasions 
 		$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name
@@ -167,6 +155,7 @@ class gifts_controller extends base_controller {
 	
 		# Pass data to the view
 		$this->template->content->listitems = $listitems;
+		$this->template->content->listlength = count($listitems);
 		
 		# Render view
 		echo $this->template;

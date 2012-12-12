@@ -7,8 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="/css/applicationstyle.css" />
 	
 	<!-- JS -->
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+	<script src="/js/gifthelper.js"></script>
 				
 	<!-- Controller Specific JS/CSS -->
 	<?=@$client_files; ?>
