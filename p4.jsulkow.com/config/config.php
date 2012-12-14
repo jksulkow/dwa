@@ -15,11 +15,11 @@ If you want a different default time format for this app, set it below
 
 
 # What is the name of this app?
-	define('APP_NAME', 'My Gift Helper');  
+	define('APP_NAME', 'GIFTR');  
 
 # When email is sent out from the server, where should it come from?
 # Ideally, this should match the domain name
-	define('APP_EMAIL', 'webmaster@myapp.com'); 
+	define('APP_EMAIL', 'webmaster@jsulkow.com'); 
 
 /* 
 A email designated to receive messages from the server. Examples:
@@ -44,3 +44,6 @@ A email designated to receive messages from the server. Examples:
 # For extra security, you might want to set different salts than what the core uses
 	define('PASSWORD_SALT', '19presidential');
 	define('TOKEN_SALT', 'boulevard1924');
+        
+    # Set app's timezone to Eastern USA
+    define('TIMEZONE', 'America/New_York');

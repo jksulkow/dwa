@@ -33,6 +33,7 @@
 			<a href='/gifts/'>View My Giftr</a>
 			<a href='/gifts/addrecipient/'>Add A Giftee</a>
 			<a href='/gifts/find_friends'>Find Friends</a>
+			<a href='/wishes/index'>Your Wish List</a>
 		
 		<!-- Menu options for users who are not logged in -->	
 		<? else: ?>
