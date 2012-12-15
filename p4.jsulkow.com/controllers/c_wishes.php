@@ -35,10 +35,8 @@ class wishes_controller extends base_controller {
 		
 		DB::instance(DB_NAME)->insert('wishes', $_POST);
 		
-		# inject a view into the results div
-		
-		$view = View::instance("v_wishes_index");
-		echo $view;
+		# Don't really need to use Ajax for this, just reload the page
+		Router::redirect("/wishes/index");
 	}
 	
 	public function index() {
@@ -53,17 +51,8 @@ class wishes_controller extends base_controller {
 			ORDER BY created desc";
 		
 		$wishes = DB::instance(DB_NAME)->select_rows($q);
-		var_dump($wishes);
-		
-		# Convert the created date to a readable format
-		foreach ($wishes as $k=> &$v) {
-			if ($k == "created") {
-				echo "This is v.";
-				var_dump($v);
-				$v = Time::display($v);
-			}
-		}
-		
+		#var_dump($wishes);
+
 		
 		# Pass data to the view
 		$this->template->content->wishes = $wishes;

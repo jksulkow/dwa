@@ -17,8 +17,6 @@
 	</div>
 	
 	<div id="giftlist">
-
-		
 		<? foreach ($listitems as $listitem): ?>
 		
 			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient' data-ro_id="<?=$listitem['recipient_occasion_id']?>">
@@ -29,6 +27,7 @@
 				
 				<div class="arrow open"><a href='#'>V</a></div>
 				
+				<!--hidden form-->
 				<form class='addgiftform' >Name of Gift <input type='text' name='gift_name'><br>
 				Where to Buy It<input type='text' name='location'><br>
 				<input type='hidden' name='recipient_occasion_id' value= '"giftee_id"'>
@@ -40,7 +39,7 @@
 				<br>
 				<div class="contents">
 				<? foreach ($listitem["gifts"] as $gift): ?>
-					<div class="response">
+					<div class="response"></div>
 					<div class="got_it">
 					<span class="got_icon<?=$gift['got_it']?>"> <span></span></span>
 					Got It?
@@ -54,18 +53,27 @@
 					<div class="editgiftbutton"><a class="editgift" href='#'>Edit</a></div>
 					<div class="deletegiftbutton"><a class="deletegift" href='#'>Delete</a></div>
 					<div class="clear"></div>
-					</div>
-					</div>
+					</div> <!--close class giftlist div-->
+					
 				<br>
 				<? endforeach; ?>
-				</div>
+				</div> <!--close contents div-->
 			
 
-			</div>	
+			</div>	<!--close recipient_occasion_id div-->
 		<? endforeach; ?>
-			
-		
-		
-		
-	</div>
+	</div> <!--close id giftlist div -->
 	
+<script type='text/javascript'>
+    
+    var addGiftOptions = {
+            type: 'post',
+            url: '/gifts/p_addgift',
+            success: function(response) {
+                var gift = jQuery.parseJSON(response);
+                $('.response').html(response);
+            },
+    };
+    
+    $('.addgiftform').ajaxForm(addGiftOptions);
+</script>

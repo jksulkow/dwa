@@ -14,17 +14,11 @@ $(document).ready(function() { // start doc ready; do not delete this!
         addgift(this);
     });
     
-    var addGiftOptions = {
-            type: 'post',
-            url: '/gifts/p_addgift',
-            success: function(response) {
-                var gift = jQuery.parseJSON(response);
-                alert(gift);
-                $('.response').html(response);
-            }
-    };
+    $(".addwish").click(function() {
+        addwish();
+    });
     
-    $('.addgiftform').ajaxForm(addGiftOptions);
+
     
     $(".editgift").click(function() {
         editgift(this);
@@ -52,14 +46,15 @@ $(document).ready(function() { // start doc ready; do not delete this!
 
     
     //p4--modified addgift to be a hidden form
-    function addgift(id){
-        //p4 - options for ajax form
-
-        //alert("addgiftform");
-        
+    function addgift(id){  
         giftee_id = $(id).parent().parent().data('ro_id');
         $(".addgiftform").css("display","block");
 }
+    
+    //p4 Wish List functionality
+    function addwish(){
+        $("#addwishform").css("display", "block");
+    }
 
     //p4--cancel adding a gift
     function canceladdgift(id){
