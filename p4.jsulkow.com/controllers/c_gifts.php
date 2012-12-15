@@ -66,9 +66,10 @@ class gifts_controller extends base_controller {
 		$giftid = DB::instance(DB_NAME)->insert('gifts', $_POST);
 		
 		$gift = DB::instance(DB_NAME)->select_rows("SELECT * FROM gifts WHERE gift_id =".$giftid);
+		var_dump($gift);
 		
 		# format gift array as JSON to use in javascript/ajax
-		echo json_encode($gift);
+		#echo json_encode($gift);
 		
 		//Router::redirect("/gifts/");
 	}

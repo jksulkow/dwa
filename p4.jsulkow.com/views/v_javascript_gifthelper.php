@@ -28,9 +28,9 @@
 				<div class="arrow open"><a href='#'>V</a></div>
 				
 				<!--hidden form-->
-				<form class='addgiftform' >Name of Gift <input type='text' name='gift_name'><br>
+				<form class='addgiftform' method='Post' action='/gifts/p_addgift'>Name of Gift <input type='text' name='gift_name'><br>
 				Where to Buy It<input type='text' name='location'><br>
-				<input type='hidden' name='recipient_occasion_id' value= '"giftee_id"'>
+				<input type='hidden' name='recipient_occasion_id' value= '<?=$listitem['recipient_occasion_id']?>'>
 				Got It?<input type='checkbox' name='got_it' value='1'> <br>
 				<input type='submit' value='Add'>
 				</form>
@@ -64,16 +64,16 @@
 		<? endforeach; ?>
 	</div> <!--close id giftlist div -->
 	
-<script type='text/javascript'>
-    
-    var addGiftOptions = {
-            type: 'post',
-            url: '/gifts/p_addgift',
-            success: function(response) {
-                var gift = jQuery.parseJSON(response);
-                $('.response').html(response);
-            },
-    };
-    
-    $('.addgiftform').ajaxForm(addGiftOptions);
-</script>
+<!--<script type='text/javascript'>-->
+<!--    -->
+<!--    var addGiftOptions = {-->
+<!--            type: 'post',-->
+<!--            url: '/gifts/p_addgift',-->
+<!--            success: function(response) {-->
+<!--                var gift = jQuery.parseJSON(response);-->
+<!--                $('.response').html(response);-->
+<!--            },-->
+<!--    };-->
+<!--    -->
+<!--    $('.addgiftform').ajaxForm(addGiftOptions);-->
+<!--</script>-->
