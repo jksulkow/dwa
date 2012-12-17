@@ -44,12 +44,42 @@ $(document).ready(function() { // start doc ready; do not delete this!
 
 }); // end doc ready; do not delete this!
 
+
+       var addGiftOptions = {
+            type: 'post',
+            url: '/gifts/p_addgift',
+	    clearForm: true,
+            success: function(response) {
+                var newgift = jQuery.parseJSON(response);
+		var r_o_id = newgift.recipient_occasion_id;
+		r_o_id = "#contents_"+r_o_id;
+		var giftlist = "<div class='got_it'>"+
+					"<span class='got_icon"+newgift.got_it+"'> <span></span></span>"+
+					"Got It?"+
+					"</div>"+
+				
+					"<div class='giftlist' data-giftid = '"+newgift.gift_id+"' data-giftname = '"+newgift.gift_name+
+                                        "' data-giftlocation = '"+newgift.location+"' data-giftgot = '"+newgift.got_it+"'>"+
+					"<div class='gift_name'>"+newgift.gift_name+"</div>"+
+					"<div class='location'>Where to Buy?</div><div class = 'answer'>"+newgift.location+"</div>"+
+					
+				
+					"<div class='editgiftbutton'><a class='editgift' href='#'>Edit</a></div>"+
+					"<div class='deletegiftbutton'><a class='deletegift' href='#'>Delete</a></div>"+
+					"<div class='clear'></div>"+
+					"</div>"
+                $(r_o_id).append(giftlist);
+            },
+    };
     
     //p4--modified addgift to be a hidden form
     function addgift(id){  
         giftee_id = $(id).parent().parent().data('ro_id');
-        $(".addgiftform").css("display","block");
+        $("#addgiftform_"+giftee_id).css("display","block");
+        $("#addgiftform_"+giftee_id).ajaxForm(addGiftOptions);
 }
+
+
     
     //p4 Wish List functionality
     function addwish(){
@@ -58,7 +88,7 @@ $(document).ready(function() { // start doc ready; do not delete this!
 
     //p4--cancel adding a gift
     function canceladdgift(id){
-        $(".addgiftform").css("display", "none");
+        $("#addgiftform_"+giftee_id).css("display", "none");
     }
 
 
