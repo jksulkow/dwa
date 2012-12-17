@@ -61,17 +61,29 @@ class gifts_controller extends base_controller {
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
 		
+		# save the recipient_occasion_id into a variable
+		#$r_o_id = $_POST['recipient_occasion_id'];
+		
 		# insert the data into the database
 		# returns the id of the row
 		$giftid = DB::instance(DB_NAME)->insert('gifts', $_POST);
 		
-		$gift = DB::instance(DB_NAME)->select_rows("SELECT * FROM gifts WHERE gift_id =".$giftid);
-		var_dump($gift);
+		$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
+		FROM gifts g
+		where g.gift_id =".$giftid;
 		
-		# format gift array as JSON to use in javascript/ajax
-		#echo json_encode($gift);
+		$newgift = DB::instance(DB_NAME)->select_row($q2);
 		
-		//Router::redirect("/gifts/");
+		# Build a query of this recipient-occasion's gifts
+		#$q = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
+		#FROM gifts g
+		#WHERE g.recipient_occasion_id = ".$listitems[$i]["recipient_occasion_id"];
+		
+		#$gifts = DB::instance(DB_NAME)->select_rows($q);
+		
+		# format as JSON to use in javascript/ajax
+		echo json_encode($newgift);
+		
 	}
 	
 	public function p_editgift() {
