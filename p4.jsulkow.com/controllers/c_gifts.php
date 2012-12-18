@@ -145,7 +145,8 @@ class gifts_controller extends base_controller {
 		 
 		
 		# Build a query of this user's recipients-occasions 
-		$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name
+		$q1 = "SELECT ro.recipient_occasion_id, r.nickname, ro.is_done, o.occasion_name,
+			r.user_id as recip_as_user_id
 			FROM recipients r
 			JOIN users_recipients ur ON ur.recipient_id = r.recipient_id
 			JOIN recipients_occasions ro ON ro.user_recipient_id = ur.user_recipient_id
@@ -154,6 +155,7 @@ class gifts_controller extends base_controller {
 		
 		# Execute query, storing the results in a variable $listitems
 		$listitems = DB::instance(DB_NAME)->select_rows($q1);
+		var_dump($listitems);
 		
 		# Add an element to each item in $listitems, where the new element is an array of gifts
 		

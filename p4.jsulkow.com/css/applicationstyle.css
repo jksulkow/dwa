@@ -136,6 +136,11 @@ body {
             
 }
 
+.addwishbutton {
+    display: inline-block;
+    margin-top:15px;
+}
+
 .addgiftform, .editgiftform, #addwishform {
     display: none;
 }
@@ -226,6 +231,13 @@ body {
     font-size: 11px;
 }
 
+.visible {
+    display: inline;
+}
+
+.invisible {
+    visibility:hidden;
+}
 
 #listlength {
     visibility: hidden;

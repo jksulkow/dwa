@@ -61,4 +61,28 @@ class wishes_controller extends base_controller {
 		echo $this->template;
 	
 	}
+	
+	public function getWishList ($giftee = NULL) {
+        
+        # Setup view
+	$this->template->content = View::instance('v_wishes_index');
+        
+       # Query to retrieve the  person's profile data elements
+            $q = "SELECT item_name, created 
+			FROM wishes
+			WHERE user_id = ".$giftee;
+	
+	# Execute our query, storing the results in a variable $person
+	$person = DB::instance(DB_NAME)->select_row($q, 'object');
+        
+        #var_dump($person);
+        
+        # Pass data to the view
+	$this->template->content->giftee = $person;
+               
+	$this->template->title   = "WishList of ".$person->first_name;
+        	
+	# Render template
+	echo $this->template;
+    }
 }

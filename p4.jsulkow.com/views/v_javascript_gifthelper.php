@@ -22,10 +22,26 @@
 			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient' data-ro_id="<?=$listitem['recipient_occasion_id']?>">
 				<div class="addgiftbutton"><a class="addgift" href='#'>+Add Gift</a></div>
 				<span class="done<?=$listitem['is_done']?>"> <span><a href='#'></a></span></span>
+				
+				<!--if recipient is also a user, can link to their wish list -->
+				<div class="recip_as_user">
+					<? if (isset($listitem['recip_as_user_id'])) {
+						$showuser = 'visible';
+					}
+					else {
+						$showuser = 'invisible';
+					}
+					?>
+					
+					<a class="<?=$showuser ?>" href='/wishes/getWishList/<?=$listitem['recip_as_user_id']?>'>Show User's WishList</a>
+				</div>
+				
 				<div class="giftee"><?=$listitem['nickname']?></div>
 				<div class = "occasion"><?=$listitem['occasion_name']?></div>
 				
 				<div class="arrow open"><a href='#'>V</a></div>
+				
+				
 				
 				<!--hidden form-->
 				<form id='addgiftform_<?=$listitem['recipient_occasion_id']?>' class='addgiftform' >
