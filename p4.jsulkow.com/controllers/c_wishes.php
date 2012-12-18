@@ -66,21 +66,28 @@ class wishes_controller extends base_controller {
         
         # Setup view
 	$this->template->content = View::instance('v_wishes_index');
+	
+	#var_dump($giftee);
         
        # Query to retrieve the  person's profile data elements
             $q = "SELECT item_name, created 
 			FROM wishes
 			WHERE user_id = ".$giftee;
+			
+	#var_dump($q);
 	
-	# Execute our query, storing the results in a variable $person
-	$person = DB::instance(DB_NAME)->select_row($q, 'object');
+	# Execute our query, storing the results in a variable 
+	$wishes = DB::instance(DB_NAME)->select_rows($q);
         
-        #var_dump($person);
+        var_dump($wishes);
         
         # Pass data to the view
-	$this->template->content->giftee = $person;
+        if (!empty($wishes)) {
+	$this->template->content->wishes->$wishes;
+	}
+	
                
-	$this->template->title   = "WishList of ".$person->first_name;
+	#$this->template->title   = "WishList of ".$giftee->first_name;
         	
 	# Render template
 	echo $this->template;
