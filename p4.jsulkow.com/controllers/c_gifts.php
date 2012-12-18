@@ -155,7 +155,7 @@ class gifts_controller extends base_controller {
 		
 		# Execute query, storing the results in a variable $listitems
 		$listitems = DB::instance(DB_NAME)->select_rows($q1);
-		var_dump($listitems);
+		#var_dump($listitems);
 		
 		# Add an element to each item in $listitems, where the new element is an array of gifts
 		
