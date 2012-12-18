@@ -100,7 +100,15 @@ class gifts_controller extends base_controller {
 		
 		DB::instance(DB_NAME)->update('gifts', $_POST, "WHERE gift_id =".$g_id);
 		
-		Router::redirect("/gifts/");
+		$q2 = "SELECT g.recipient_occasion_id, g.gift_name, g.location, g.got_it, g.gift_id
+		FROM gifts g
+		where g.gift_id =".$g_id;
+		
+		$newgift = DB::instance(DB_NAME)->select_row($q2);
+		
+		echo json_encode($newgift);
+		
+		#Router::redirect("/gifts/");
 	}
 	
 	public function p_editdone() {

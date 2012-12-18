@@ -43,20 +43,45 @@
 					
 					
 				<? foreach ($listitem["gifts"] as $gift): ?>
-					<div class="got_it">
-					<span class="got_icon<?=$gift['got_it']?>"> <span></span></span>
-					Got It?
-					</div>
-				
-					<div class='giftlist' data-giftid="<?=$gift['gift_id']?>" data-giftname="<?=$gift['gift_name']?>" data-giftlocation="<?=$gift['location']?>" data-giftgot="<?=$gift['got_it']?>">
-					<div class='gift_name'><?=$gift['gift_name']?></div>
-					<div class="location">Where to Buy?</div><div class = "answer"><?=$gift['location']?></div>
+					<div id = "gift_<?=$gift['gift_id']?>">
+						<div class="got_it">
+						<span class="got_icon<?=$gift['got_it']?>"> <span></span></span>
+						Got It?
+						</div>
 					
-				
-					<div class="editgiftbutton"><a class="editgift" href='#'>Edit</a></div>
-					<div class="deletegiftbutton"><a class="deletegift" href='#'>Delete</a></div>
-					<div class="clear"></div>
-					</div> <!--close class giftlist div-->
+						<div class='giftlist' data-giftid="<?=$gift['gift_id']?>" data-giftname="<?=$gift['gift_name']?>" data-giftlocation="<?=$gift['location']?>" data-giftgot="<?=$gift['got_it']?>">
+						<div class='gift_name'><?=$gift['gift_name']?></div>
+						<div class="location">Where to Buy?</div><div class = "answer"><?=$gift['location']?></div>
+						
+					
+						<div class="editgiftbutton"><a class="editgift" href='#'>Edit</a></div>
+						<div class="deletegiftbutton"><a class="deletegift" href='#'>Delete</a></div>
+						<div class="clear"></div>
+						
+						
+						<!--hidden form-->
+						<form id='editgiftform_<?=$gift['gift_id']?>' class='editgiftform' >
+						Name of Gift <input type='text' name='gift_name' value="<?=$gift['gift_name']?>" ><br>
+						Where to Buy It<input type='text' name='location' value="<?=$gift['location']?>" ><br>
+						<input type='hidden' name='gift_id' value="<?=$gift['gift_id']?>">
+						Got It?
+							<!-- need to give a checkbox a 'checked' attribute to display it already checked -->
+							<? $checkedval = "";
+							if($gift['got_it'] == 1) {
+								$checkedval = "checked";
+							}
+							?>
+						<!-- value='1' indicates the value that WILL BE sent if the user checks the box -->
+						<input type='checkbox' name='got_it' value='1' <? echo $checkedval ?> >
+						<br>
+						<button type="button" class="canceleditgift" >X</button>
+						<input type='submit' value='Save'>
+						</form>
+						
+						</div> <!--close class giftlist div-->
+						
+						
+					</div> <!--close gift id div -->
 					
 				<br>
 				<? endforeach; ?>

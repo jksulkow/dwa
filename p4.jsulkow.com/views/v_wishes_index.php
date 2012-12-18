@@ -1,13 +1,14 @@
 <div class="addwishbutton"><a class="addwish" href='#'>+Add Wish</a></div>
-<div class = "wishHeading">
-    <span class = "wishFor">I Wish For...</span><span class = "listedOn">Listed On</span>
-</div>
+
+    
+
 
 <div class = "wishlist">
+    <span class = "wishFor">I Wish For...</span>
         <? foreach($wishes as $wish): ?>
 	
 	 <div class = "wishitem"><?=$wish['item_name']?></div>
-            <div class = "wishdate"><?=Time::display($wish['created'])?></div>
+            <div class = "wishdate">added <?=Time::display($wish['created'])?></div>
 		
         <? endforeach; ?>
 </div>

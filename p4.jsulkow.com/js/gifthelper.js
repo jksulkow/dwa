@@ -41,6 +41,11 @@ $(document).ready(function() { // start doc ready; do not delete this!
     $(".canceladdgift").click(function() {
         canceladdgift(this);
     });
+    
+    //p4--cancel editing a gift
+    $(".canceleditgift").click(function() {
+        canceleditgift(this);
+    });
 
 }); // end doc ready; do not delete this!
 
@@ -53,7 +58,8 @@ $(document).ready(function() { // start doc ready; do not delete this!
                 var newgift = jQuery.parseJSON(response);
 		var r_o_id = newgift.recipient_occasion_id;
 		r_o_id = "#contents_"+r_o_id;
-		var giftlist = "<div class='got_it'>"+
+		var giftlist =          "<div id = 'gift_"+newgift.gift_id+"'>"+
+                                        "<div class='got_it'>"+
 					"<span class='got_icon"+newgift.got_it+"'> <span></span></span>"+
 					"Got It?"+
 					"</div>"+
@@ -67,17 +73,48 @@ $(document).ready(function() { // start doc ready; do not delete this!
 					"<div class='editgiftbutton'><a class='editgift' href='#'>Edit</a></div>"+
 					"<div class='deletegiftbutton'><a class='deletegift' href='#'>Delete</a></div>"+
 					"<div class='clear'></div>"+
-					"</div>"
+					"</div>"+
+                                        "</div>"
                 $(r_o_id).append(giftlist);
             },
     };
     
     //p4--modified addgift to be a hidden form
+    //and to use json/Ajax for posting
     function addgift(id){  
         giftee_id = $(id).parent().parent().data('ro_id');
         $("#addgiftform_"+giftee_id).css("display","block");
         $("#addgiftform_"+giftee_id).ajaxForm(addGiftOptions);
 }
+
+    //p4--modified edit gift to use json/Ajax for posting
+    var editGiftOptions = {
+        type: 'post',
+        url: '/gifts/p_editgift',
+        success: function(response) {
+            var newgift = jQuery.parseJSON(response);
+            var giftdiv = newgift.gift_id;
+            giftdiv = "#gift_"+giftdiv;
+            var gift =          "<div id = 'gift_"+newgift.gift_id+"'>"+
+                                        "<div class='got_it'>"+
+					"<span class='got_icon"+newgift.got_it+"'> <span></span></span>"+
+					"Got It?"+
+					"</div>"+
+				
+					"<div class='giftlist' data-giftid = '"+newgift.gift_id+"' data-giftname = '"+newgift.gift_name+
+                                        "' data-giftlocation = '"+newgift.location+"' data-giftgot = '"+newgift.got_it+"'>"+
+					"<div class='gift_name'>"+newgift.gift_name+"</div>"+
+					"<div class='location'>Where to Buy?</div><div class = 'answer'>"+newgift.location+"</div>"+
+					
+				
+					"<div class='editgiftbutton'><a class='editgift' href='#'>Edit</a></div>"+
+					"<div class='deletegiftbutton'><a class='deletegift' href='#'>Delete</a></div>"+
+					"<div class='clear'></div>"+
+					"</div>"+
+                                        "</div>"
+            $(giftdiv).html(gift);
+        },
+    };
 
 
     
@@ -88,8 +125,10 @@ $(document).ready(function() { // start doc ready; do not delete this!
 
     //p4--cancel adding a gift
     function canceladdgift(id){
+        giftee_id = $(id).parent().parent().data('ro_id');
         $("#addgiftform_"+giftee_id).css("display", "none");
     }
+    
 
 
     //p4--labeled submit button 'Edit Gift'
@@ -102,9 +141,14 @@ $(document).ready(function() { // start doc ready; do not delete this!
         if (giftgot== '1') {
             checkedval = "checked";
         }
-        
-        form="<form method='POST' id='editgiftform' action='/gifts/p_editgift'>Name of Gift <input type='text' name='gift_name' value='"+giftname+"'><br>Where to Buy It<input type='text' name='location' value='"+giftlocation+"'>Got It?<input type='checkbox' name='got_it' value='1' "+checkedval+"> <br><input type='hidden' name='gift_id' value='"+giftid+"'><input type='submit' value='Edit Gift'></form>"
-        $(id).parent().append(form);
+        $("#editgiftform_"+giftid).css("display","block");
+        $("#editgiftform_"+giftid).ajaxForm(editGiftOptions);
+    }
+    
+    //p4--cancel editing a gift
+    function canceleditgift(id){
+        giftid = $(id).parent().parent().data('giftid');
+        $("#editgiftform_"+giftid).css("display", "none");
     }
     
     
