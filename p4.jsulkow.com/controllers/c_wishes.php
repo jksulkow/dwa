@@ -44,18 +44,8 @@ class wishes_controller extends base_controller {
 		# Set up view
 		$this->template->content = View::instance('v_wishes_index');
 		$this->template->title   = $this->user->first_name."'s Wish List";
+		$this->template->content->wishlist = View::instance('v_wishes_list');
 		
-		$q = "SELECT item_name, created 
-			FROM wishes
-			WHERE user_id = ".$this->user->user_id."
-			ORDER BY created desc";
-		
-		$wishes = DB::instance(DB_NAME)->select_rows($q);
-		#var_dump($wishes);
-
-		
-		# Pass data to the view
-		$this->template->content->wishes = $wishes;
 		
 		# Render view
 		echo $this->template;
@@ -65,14 +55,19 @@ class wishes_controller extends base_controller {
 	public function getWishList ($giftee = NULL) {
         
         # Setup view
-	$this->template->content = View::instance('v_wishes_index');
+	$this->template->content = View::instance('v_wishes_list');
+	
+	if ($giftee == NULL) {
+		$giftee = $this->user->user_id;
+	}
 	
 	#var_dump($giftee);
         
        # Query to retrieve the  person's profile data elements
-            $q = "SELECT item_name, created 
-			FROM wishes
-			WHERE user_id = ".$giftee;
+            $q = "SELECT u.first_name, w.item_name, w.created
+			FROM users u
+			LEFT OUTER JOIN wishes w ON u.user_id = w.user_id
+			WHERE u.user_id = ".$giftee;
 			
 	#var_dump($q);
 	
@@ -81,12 +76,9 @@ class wishes_controller extends base_controller {
         
         var_dump($wishes);
         
-        # Pass data to the view
-        if (!empty($wishes)) {
-	$this->template->content->wishes->$wishes;
-	}
+        # Pass data to the view--note it will at least always have u.first_name
+	$this->template->content->wishes = $wishes;
 	
-               
 	#$this->template->title   = "WishList of ".$giftee->first_name;
         	
 	# Render template
