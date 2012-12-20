@@ -1,5 +1,5 @@
 <div class = "wishlist">
-    <span class = "wishFor">I Wish For...</span>
+    <span class = "wishFor"><?=$wishes[0]['first_name']?> Wishes For...</span>
     
     
         <? if ($countw >= 1) {
