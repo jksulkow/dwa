@@ -18,8 +18,6 @@ $(document).ready(function() { // start doc ready; do not delete this!
         addwish();
     });
     
-
-    
     $(".editgift").click(function() {
         editgift(this);
     });
@@ -72,7 +70,7 @@ $(document).ready(function() { // start doc ready; do not delete this!
 				
 					"<div class='editgiftbutton'><a class='editgift' href='#'>Edit</a></div>"+
 					"<div class='deletegiftbutton'><a class='deletegift' href='#'>Delete</a></div>"+
-					"<div class='clear'></div>"+
+			    
 					"</div>"+
                                         "</div>"
                 $(r_o_id).append(giftlist);
@@ -95,7 +93,7 @@ $(document).ready(function() { // start doc ready; do not delete this!
             var newgift = jQuery.parseJSON(response);
             var giftdiv = newgift.gift_id;
             giftdiv = "#gift_"+giftdiv;
-            var gift =          "<div id = 'gift_"+newgift.gift_id+"'>"+
+            var gift =          "<div class='clear'></div><div id = 'gift_"+newgift.gift_id+"'>"+
                                         "<div class='got_it'>"+
 					"<span class='got_icon"+newgift.got_it+"'> <span></span></span>"+
 					"Got It?"+
@@ -189,16 +187,25 @@ $(document).ready(function() { // start doc ready; do not delete this!
         }
     }
     
+    
     //toggle the giftee's status between done and not done.
     function editdone0(id) {
         giftee_id = $(id).parent().data('ro_id');
         
         $(id).removeClass('done0');
         $(id).addClass('done1');
-        form="<form method='POST' action='/gifts/p_editdone'><input type='hidden' name='is_done' value='1'><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'><input type='submit' value='update to done!'></form>"
+        form="<form method='POST' action='/gifts/p_editdone' ><input type='hidden' name='is_done' value='1'><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'><input type='submit' value='update to done!'></form>"
         $(id).parent().append(form);
         }
     
+        function editdone1(id) {
+        giftee_id = $(id).parent().data('ro_id');
+        
+        $(id).removeClass('done1');
+        $(id).addClass('done0');
+        form="<form method='POST' action='/gifts/p_editdone'><input type='hidden' name='is_done' value='0'><input type='hidden' name='recipient_occasion_id' value='"+giftee_id+"'><input type='submit' value='update to not done!'></form>"
+        $(id).parent().append(form);
+        }
     
 
 

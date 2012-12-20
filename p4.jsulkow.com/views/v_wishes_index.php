@@ -3,7 +3,7 @@
     
 
 
-<? =$wishlist ?>
+<? echo $wishlist ?>
 
 
 <!--hidden form-->

@@ -46,6 +46,28 @@ class wishes_controller extends base_controller {
 		$this->template->title   = $this->user->first_name."'s Wish List";
 		$this->template->content->wishlist = View::instance('v_wishes_list');
 		
+		# Query to retrieve the  person's profile data elements
+		$q = "SELECT u.first_name, w.item_name, w.created
+			FROM users u
+			LEFT OUTER JOIN wishes w ON u.user_id = w.user_id
+			WHERE u.user_id = ".$this->user->user_id;
+			
+		# Query to get count of wish list items.
+		# To be used in a conditional statement for displaying the wish list
+		$q2 = "SELECT COUNT(*)
+			FROM wishes w 
+			WHERE w.user_id = ".$this->user->user_id;
+	
+	# Execute our query, storing the results in a variable 
+	$wishes = DB::instance(DB_NAME)->select_rows($q);
+	
+	$countw = DB::instance(DB_NAME)->select_field($q2);
+        
+        #var_dump($countw);
+        
+        # Pass data to the view
+	$this->template->content->wishlist->wishes = $wishes;
+	$this->template->content->wishlist->countw = $countw;
 		
 		# Render view
 		echo $this->template;
@@ -69,15 +91,22 @@ class wishes_controller extends base_controller {
 			LEFT OUTER JOIN wishes w ON u.user_id = w.user_id
 			WHERE u.user_id = ".$giftee;
 			
-	#var_dump($q);
+	# Query to get count of wish list items.
+	# To be used in a conditional statement for displaying the wish list
+		$q2 = "SELECT COUNT(*)
+			FROM wishes w 
+			WHERE w.user_id = ".$giftee;
 	
 	# Execute our query, storing the results in a variable 
 	$wishes = DB::instance(DB_NAME)->select_rows($q);
+	
+	$countw = DB::instance(DB_NAME)->select_field($q2);
         
-        var_dump($wishes);
+        #var_dump($countw);
         
-        # Pass data to the view--note it will at least always have u.first_name
+        # Pass data to the view
 	$this->template->content->wishes = $wishes;
+	$this->template->content->countw = $countw;
 	
 	#$this->template->title   = "WishList of ".$giftee->first_name;
         	

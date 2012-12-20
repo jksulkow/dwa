@@ -9,11 +9,13 @@
 		and they'll automatically become giftees. (They won't see your gift checklist).</p>
 		<p>You can add anyone as a giftee!  If they aren't on GIFTR, just click <a href='/gifts/addrecipient'>Add Giftee</a>
 		and give them a nickname.</p>
+		<p>If your giftee is another GIFTR user you "friended", you can also see their wish list by clicking the Wish List button to the left of their name below.</p>
 	</div>
 	<div id="instructions2">
 		<p>Now add a gift idea using the Add Gift button next to the Giftee.
 		Make sure you say where you want to shop for it, too. </p>
-		Use the Edit button to change a gift or to place a checkmark next to "got it".<br><br>
+		<p>Use the Edit button to change a gift or to place a checkmark next to "got it".</p>
+		
 	</div>
 	
 	<div id="giftlist">
@@ -21,23 +23,32 @@
 		
 			<div id='recipient_occasion_<?=$listitem['recipient_occasion_id']?>' class='recipient' data-ro_id="<?=$listitem['recipient_occasion_id']?>">
 				<div class="addgiftbutton"><a class="addgift" href='#'>+Add Gift</a></div>
+				<? if (isset($listitem['recip_as_user_id'])) { ?>
+					<!-- link to the friend's wish list -->
+					<div class = "addgiftbutton">
+					<a class="" href='/wishes/getWishList/<?=$listitem['recip_as_user_id']?>'>WishList</a>
+					</div>
+					<!-- end showwishlist div -->
+				<? } ?>
+				
+				
+				
+				
 				<span class="done<?=$listitem['is_done']?>"> <span><a href='#'></a></span></span>
 				
-				<!--if recipient is also a user, can link to their wish list -->
-				<div class="recip_as_user">
-					<? if (isset($listitem['recip_as_user_id'])) {
-						$showuser = 'visible';
-					}
-					else {
-						$showuser = 'invisible';
-					}
-					?>
-					
-					<a class="<?=$showuser ?>" href='/wishes/getWishList/<?=$listitem['recip_as_user_id']?>'>Show User's WishList</a>
-				</div>
+
 				
 				<div class="giftee"><?=$listitem['nickname']?></div>
 				<div class = "occasion"><?=$listitem['occasion_name']?></div>
+				
+				<!--if recipient is also a user, can link to their wish list -->
+				<div class="recip_as_user">
+					
+				</div>
+				<div class="clear"></div>
+				
+				
+				
 				
 				<div class="arrow open"><a href='#'>V</a></div>
 				
@@ -72,7 +83,7 @@
 					
 						<div class="editgiftbutton"><a class="editgift" href='#'>Edit</a></div>
 						<div class="deletegiftbutton"><a class="deletegift" href='#'>Delete</a></div>
-						<div class="clear"></div>
+						
 						
 						
 						<!--hidden form-->
@@ -98,6 +109,7 @@
 						
 						
 					</div> <!--close gift id div -->
+					<div class="clear"></div>
 					
 				<br>
 				<? endforeach; ?>

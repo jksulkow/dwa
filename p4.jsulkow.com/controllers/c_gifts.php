@@ -116,6 +116,8 @@ class gifts_controller extends base_controller {
 		
 		
 		DB::instance(DB_NAME)->update('recipients_occasions', $_POST, "WHERE recipient_occasion_id =".$giftee_id);
+
+		
 		Router::redirect("/gifts/");
 	}
 	
