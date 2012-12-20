@@ -10,7 +10,7 @@ If you "friend" someone, you'll be able to see their wish list, which makes you 
 <? foreach($recipients as $recipient): ?>
 
 	<!-- Print this user's name -->
-	<span class="giftee_name"><a href='/users/getWishList/<?=$recipient['user_id']?>'><?=$recipient['first_name']?> <?=$recipient['last_name']?></a>
+	<span class="giftee_name"><?=$recipient['first_name']?> <?=$recipient['last_name']?>
 
 </span>
 
